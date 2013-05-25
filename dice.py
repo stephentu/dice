@@ -3,6 +3,7 @@
 import collections
 import random
 import itertools
+import pickle
 
 ### Game constants ###
 CAT_1 = 1
@@ -265,6 +266,7 @@ class DiceWithBuddies(object):
           q.append(snew)
           running += pr * (r + self._v.get(snew, 0.0))
       self._v[s] = maxsofar
+    pickle.dump(self._v, open('v.pickle', 'w'))
 
 if __name__ == '__main__':
   #for k, v in State.ALLROLLS:
