@@ -4,6 +4,8 @@ import collections
 import random
 import itertools
 import pickle
+import math
+import sys
 
 ### Game constants ###
 CAT_1 = 1
@@ -21,6 +23,7 @@ CAT_5OFKIND = 12
 CAT_CHANCE = 13
 
 ALL_CATEGORIES = frozenset(range(1, 14))
+
 
 def nnz(dices, begin, end):
   n = 0
@@ -140,33 +143,29 @@ def take(iterable):
 class State(object):
   ALLROLLS=makeallrolls()
 
-  def __init__(self):
-    """Initializes a random initial game state"""
-    self._dices = tuple(roll(5))
-    self._round = 0
-    self._avail = ALL_CATEGORIES
-    self._bonus = 1
-    self._top_score = 0
-    self._bot_score = 0
+  def __init__(self, dices, rnd, avail, bonus, top_score):
+    # sanity
+    assert dices == [] or (len(dices) == 6 and sum(dices) == 5)
+    assert rnd == 0 or rnd == 1 or rnd == 2
+    assert set(avail).issubset(ALL_CATEGORIES)
+    assert bonus == 0 or bonus == 1
+    assert top_score >= 0 and top_score <= 65
 
-  def __init__(self, dices, rnd, avail, bonus, top_score, bot_score):
     self._dices = tuple(dices)
     self._round = rnd
     self._avail = frozenset(avail)
     self._bonus = bonus
     self._top_score = top_score
-    self._bot_score = bot_score
 
   def __eq__(self, y):
     return self._dices == y._dices and \
         self._round == y._round and \
         self._avail == y._avail and \
         self._bonus == y._bonus and \
-        self._top_score == y._top_score and \
-        self._bot_score == y._bot_score
+        self._top_score == y._top_score
 
   def __hash__(self):
-    return hash((self._dices, self._round, self._avail, self._bonus, self._top_score, self._bot_score))
+    return hash((self._dices, self._round, self._avail, self._bonus, self._top_score))
 
   def _diceactions(self):
     if self._round == 2 and self._bonus == 0:
@@ -184,20 +183,21 @@ class State(object):
           pr = float(count)/total
           newdices = dicecombine(m, rolls)
           snew = State(
-              dices=newdices,
-              rnd=self._round + 1 if self._round < 2 else 2,
-              avail=self._avail,
-              bonus=self._bonus if self._round < 2 else 0,
-              top_score=self._top_score,
-              bot_score=self._bot_score)
+              newdices,
+              self._round + 1 if self._round < 2 else 2,
+              self._avail,
+              self._bonus if self._round < 2 else 0,
+              self._top_score)
           l.append((snew, 0.0, pr))
         ret.append((hold, l))
     return ret
 
-  def score(self):
-    if self._top_score >= 63:
-      return self._top_score + 35 + self._bot_score
-    return self._top_score + self._bot_score
+  @staticmethod
+  def _new_top_score(old_score, add):
+    # returns (reward, new_top_score)
+    elig = old_score < 65
+    new_score = min(old_score + add, 65)
+    return ((add + 35) if elig and new_score >= 65 else add), new_score
 
   def actions(self):
     """
@@ -217,33 +217,37 @@ class State(object):
       if endgame:
         cat = take(self._avail)
         score = SCORE_FNS[cat](self._dices)
-        newstate = State(dices=[], rnd=0, avail=[], bonus=0,
-          top_score=self._top_score + score if istopcat(cat) else self._top_score,
-          bot_score=self._bot_score + score if not istopcat(cat) else self._bot_score)
-        ret.append((cat, [(newstate, newstate.score(), 1.0)]))
+        if istopcat(cat):
+          reward, new_top_score = State._new_top_score(self._top_score, score)
+        else:
+          reward, new_top_score = score, self._top_score
+        newstate = State([], 0, [], 0, new_top_score)
+        ret.append((cat, [(newstate, reward, 1.0)]))
       else:
         futurerolls, total = State.ALLROLLS[5]
         for cat in self._avail:
           score = SCORE_FNS[cat](self._dices)
+          if istopcat(cat):
+            reward, new_top_score = State._new_top_score(self._top_score, score)
+          else:
+            reward, new_top_score = score, self._top_score
           for rolls, count in futurerolls.iteritems():
             pr = float(count)/total
             newstate = State(
-                dices=rolls,
-                rnd=0,
-                avail=[c for c in self._avail if c != cat],
-                bonus=self._bonus,
-                top_score=self._top_score + score if istopcat(cat) else self._top_score,
-                bot_score=self._bot_score + score if not istopcat(cat) else self._bot_score)
-            ret.append((cat, [(newstate, 0.0, pr)]))
+                rolls,
+                0,
+                [c for c in self._avail if c != cat],
+                self._bonus,
+                new_top_score)
+            ret.append((cat, [(newstate, reward, pr)]))
       return ret
 
   def __str__(self):
-    return '<dices=%s, round=%d, avail=..., bonus=%d, topscore=%d, botscore=%d>' % (
+    return '<dices=%s, round=%d, avail=..., bonus=%d, topscore=%d>' % (
         self._dices,
         self._round,
         self._bonus,
-        self._top_score,
-        self._bot_score)
+        self._top_score)
 
   def __repr__(self):
     return str(self)
@@ -252,26 +256,42 @@ class DiceWithBuddies(object):
   def __init__(self):
     self._v = {} # state table
   def solve(self):
-    q = []
-    for k, _ in State.ALLROLLS:
-      for r in k:
-        q.append(State(dicemap(r), 0, ALL_CATEGORIES, 1, 0, 0))
-    while q:
-      s = q.pop()
-      actions = s.actions()
-      maxsofar = 0.0
-      for a, outcomes in actions:
-        running = 0.0
-        for snew, r, pr in outcomes:
-          q.append(snew)
-          running += pr * (r + self._v.get(snew, 0.0))
-      self._v[s] = maxsofar
-    pickle.dump(self._v, open('v.pickle', 'w'))
+    outeri = 0
+    while 1:
+      q = []
+      for r, _ in State.ALLROLLS[5][0].iteritems():
+        q.append(State(r, 0, ALL_CATEGORIES, 1, 0))
+      i = 0
+      maxchange = 0.0
+      seen = set()
+      while q:
+        s = q.pop()
+        actions = s.actions()
+        maxsofar = 0.0
+        for a, outcomes in actions:
+          running = 0.0
+          for snew, r, pr in outcomes:
+            if snew not in seen:
+              q.append(snew)
+              seen.add(snew)
+            running += pr * (r + self._v.get(snew, 0.0))
+          maxsofar = max(maxsofar, running)
+        maxchange = max(maxchange, math.fabs(self._v.get(s, 0.0) - maxsofar))
+        self._v[s] = maxsofar
+        i += 1
+        if (i % 100000) == 0:
+          # checkpoint computation
+          print >>sys.stderr, '[INFO] [iter %d] iteration %d checkpoint' % (outeri + 1, i)
+          pickle.dump(self._v, open('v.pickle', 'w'))
+      outeri += 1
+      print >>sys.stderr, '[INFO] max change after complete iteration %d (%d updates) %f' % (outeri, i, maxchange)
+      if maxchange <= 1e-3:
+        break
 
 if __name__ == '__main__':
   #for k, v in State.ALLROLLS:
   #  print k, v
-  #s = State([1, 1, 1, 1, 1, 0], 0, ALL_CATEGORIES, 1, 0, 0)
+  #s = State([1, 1, 1, 1, 1, 0], 0, ALL_CATEGORIES, 1, 0)
   #for a in s.actions():
   #  print a
 
