@@ -1,3 +1,5 @@
+-include config.mk
+
 DEBUG ?= 1
 
 PWD := $(shell pwd)
