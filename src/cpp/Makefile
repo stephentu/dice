@@ -12,10 +12,10 @@ endif
 
 LDFLAGS := -lpthread -lrt 
 
-SRCFILES := diceenum.cc
+SRCFILES := dice.cc diceenum.cc
 OBJFILES = $(SRCFILES:.cc=.o)
 
-PROGS := dice
+PROGS := search
 
 all: $(PROGS)
 

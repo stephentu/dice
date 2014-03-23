@@ -194,6 +194,9 @@ struct dicestate {
   GETTER_SETTER(TOP_POINTS_IMPOSSIBLE, (0x1 << (NUM_CATEGORIES+1)))
 
 #undef GETTER_SETTER
+
+  // encode this state into a number
+  uint32_t encode() const;
 };
 
 

@@ -1,39 +1,18 @@
 #include "dice.hh"
 #include "diceenum.hh"
 
-#include <chrono>
-#include <random>
+namespace dice {
 
-
-using namespace std;
-using namespace dice;
-
-static inline unsigned int
-diceid(const diceroll &d)
+uint32_t
+dicestate::encode() const
 {
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.id_;
+  uint32_t value = 0;
+  assert(!(bits_ & ~((1<<(NUM_CATEGORIES+2))-1)));
+  value |= bits_;
+  value |= (rollinfos.find(roll_state_)->second.id_ << (NUM_CATEGORIES+2));
+  assert(roll_number_ >= 1 && roll_number_ <= 3);
+  value |= (roll_number_ - 1) << (NUM_CATEGORIES+2+lg_rollinfos_size);
+  return value;
 }
 
-static inline const std::vector< diceroll > &
-dicepartials(const diceroll &d)
-{
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.partials_;
-}
-
-int
-main(int argc, char **argv)
-{
-  unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-  default_random_engine gen(seed);
-  diceroll d;
-  d.roll(gen);
-  cout << d << endl;
-
-  return 0;
-}
+} // namespace dice
