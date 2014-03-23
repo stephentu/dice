@@ -1,6 +1,82 @@
 import itertools as it
 import sys
 
+### Game constants ###
+CAT_1 = 1
+CAT_2 = 2
+CAT_3 = 3
+CAT_4 = 4
+CAT_5 = 5
+CAT_6 = 6
+CAT_3OFKIND = 7
+CAT_4OFKIND = 8
+CAT_FULLHOUSE = 9
+CAT_SMALLSTRAIGHT = 10
+CAT_LARGESTRAIGHT = 11
+CAT_5OFKIND = 12
+CAT_CHANCE = 13
+
+ALL_CATEGORIES = frozenset(range(1, 14))
+
+def nnz(dices, begin, end):
+  n = 0
+  for i in xrange(begin, end):
+    if dices[i] > 0:
+      n += 1
+  return n
+
+def dicesum(dices):
+  return sum((i+1)*count for i, count in enumerate(dices))
+
+def score_fn_count(count):
+  return lambda dices: count * dices[count - 1]
+
+def score_fn_Nofkind(N):
+  def fn(dices):
+    hinge = False
+    for c in dices:
+      if c >= N:
+        hinge = True
+        break
+    if N == 5:
+      return 50 if hinge else 0
+    else:
+      return dicesum(dices) if hinge else 0
+  return fn
+
+def score_fn_fullhouse(dices):
+  has_3 = False
+  has_2 = False
+  for c in dices:
+    if c == 3:
+      has_3 = True
+    elif c == 2:
+      has_2 = True
+  return 25 if has_3 and has_2 else 0
+
+def score_fn_smallstraight(dices):
+  hinge = (nnz(dices, 0, 4) == 4) or (nnz(dices, 1, 5) == 4) or (nnz(dices, 2, 6) == 4)
+  return 40 if hinge else 0
+
+def score_fn_largestraight(dices):
+  return 50 if nnz(dices, 0, 5) == 5 or nnz(dices, 1, 6) == 5 else 0
+
+SCORE_FNS = {
+  CAT_1 : score_fn_count(1),
+  CAT_2 : score_fn_count(2),
+  CAT_3 : score_fn_count(3),
+  CAT_4 : score_fn_count(4),
+  CAT_5 : score_fn_count(5),
+  CAT_6 : score_fn_count(6),
+  CAT_3OFKIND : score_fn_Nofkind(3),
+  CAT_4OFKIND : score_fn_Nofkind(4),
+  CAT_FULLHOUSE : score_fn_fullhouse,
+  CAT_SMALLSTRAIGHT : score_fn_smallstraight,
+  CAT_LARGESTRAIGHT : score_fn_largestraight,
+  CAT_5OFKIND : score_fn_Nofkind(5),
+  CAT_CHANCE : dicesum,
+}
+
 if __name__ == '__main__':
     def tocpp(t):
         return '{' + ','.join(map(str, t)) + '}'
@@ -22,6 +98,7 @@ if __name__ == '__main__':
             ret[d - 1] += 1
         return tuple(ret)
 
+    print r'// WARNING: auto-generated file'
     print r'#pragma once'
     print r'#include "dice.hh"'
     print r'#include <unordered_map>'
@@ -29,8 +106,9 @@ if __name__ == '__main__':
     print r'struct rollinfo {'
     print r'  unsigned id_;'
     print r'  std::vector< diceroll > partials_;'
-    print r'  rollinfo() : id_(), partials_() {}'
-    print r'  rollinfo(unsigned id, const std::vector< diceroll > &partials) : id_(id), partials_(partials) {}'
+    print r'  std::vector< unsigned > scores_;'
+    print r'  rollinfo() : id_(), partials_(), scores_() {}'
+    print r'  rollinfo(unsigned id, const std::vector< diceroll > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
     print r'};'
     print r'const static std::unordered_map<diceroll, rollinfo> rollinfos = {'
     i = 0
@@ -42,7 +120,8 @@ if __name__ == '__main__':
                 for p in it.combinations(values, k):
                     partials.add(p)
             partials.add(tuple()) # keep nothing!
-            rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in partials) + '})'
+            scores = [SCORE_FNS[i](x) for i in ALL_CATEGORIES]
+            rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in partials) + '}, ' + tocpp(scores) + ')'
             print '  {diceroll(' + tocpp(x) + '), ' + rollinfo + '},'
             i += 1
     print r'};'
