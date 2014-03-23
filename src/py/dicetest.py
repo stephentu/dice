@@ -1,5 +1,6 @@
 import itertools as it
 import sys
+import os
 
 ### Game constants ###
 CAT_1 = 1
@@ -78,6 +79,8 @@ SCORE_FNS = {
 }
 
 if __name__ == '__main__':
+    (_, hdrfile, cppfile) = sys.argv
+
     def tocpp(t):
         return '{' + ','.join(map(str, t)) + '}'
 
@@ -98,49 +101,62 @@ if __name__ == '__main__':
             ret[d - 1] += 1
         return tuple(ret)
 
-    print r'// WARNING: auto-generated file'
-    print r'#pragma once'
-    print r'#include "dice.hh"'
-    print r'#include <unordered_map>'
-    print r'namespace dice {'
-    print r'struct rollinfo {'
-    print r'  unsigned id_;'
-    print r'  std::vector< diceroll > partials_;'
-    print r'  std::vector< unsigned > scores_;'
-    print r'  rollinfo() : id_(), partials_(), scores_() {}'
-    print r'  rollinfo(unsigned id, const std::vector< diceroll > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
-    print r'};'
-    print r'const static std::unordered_map<diceroll, rollinfo> rollinfos = {'
-    i = 0
-    for x in it.product(range(0, 6), repeat=6):
-        if sum(x) == 5:
-            values = dicevalues(x)
-            partials = set()
-            for k in xrange(1, 5):
-                for p in it.combinations(values, k):
-                    partials.add(p)
-            partials.add(tuple()) # keep nothing!
-            scores = [SCORE_FNS[i](x) for i in ALL_CATEGORIES]
-            rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in partials) + '}, ' + tocpp(scores) + ')'
-            print '  {diceroll(' + tocpp(x) + '), ' + rollinfo + '},'
-            i += 1
-    print r'};'
+    # make header file
+    with open(hdrfile, 'w') as fp:
+        print >>fp, r'// WARNING: auto-generated file'
+        print >>fp, r'#pragma once'
+        print >>fp, r'#include "dice.hh"'
+        print >>fp, r'#include <unordered_map>'
+        print >>fp, r'#include <vector>'
+        print >>fp, r'namespace dice {'
+        print >>fp, r'struct rollinfo {'
+        print >>fp, r'  unsigned id_;'
+        print >>fp, r'  std::vector< diceroll > partials_;'
+        print >>fp, r'  std::vector< unsigned > scores_;'
+        print >>fp, r'  rollinfo() : id_(), partials_(), scores_() {}'
+        print >>fp, r'  rollinfo(unsigned id, const std::vector< diceroll > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
+        print >>fp, r'};'
+        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos();'
+        print >>fp, r'const std::unordered_map<diceroll, rollinfo> rollinfos = MakeRollInfos();'
+        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists();'
+        print >>fp, r'const std::vector< std::unordered_map<diceroll, double> > rolldists = MakeRollDists();'
+        print >>fp, r'} // namespace dice'
 
-    # now we pre-compute all possible ways to roll k dice with the associated
-    # probability distributions
+    with open(cppfile, 'w') as fp:
+        print >>fp, r'// WARNING: auto-generated file'
+        print >>fp, r'#include "%s"' % (os.path.basename(hdrfile))
+        print >>fp, r'namespace dice {'
+        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos() { return {'
+        i = 0
+        for x in it.product(range(0, 6), repeat=6):
+            if sum(x) == 5:
+                values = dicevalues(x)
+                partials = set()
+                for k in xrange(1, 5):
+                    for p in it.combinations(values, k):
+                        partials.add(p)
+                partials.add(tuple()) # keep nothing!
+                scores = [SCORE_FNS[i](x) for i in ALL_CATEGORIES]
+                rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in partials) + '}, ' + tocpp(scores) + ')'
+                print >>fp, r'  {diceroll(' + tocpp(x) + '), ' + rollinfo + '},'
+                i += 1
+        print >>fp, r'};}'
 
-    print r'const static std::vector< std::unordered_map<diceroll, double> > rolldists = {'
+        # now we pre-compute all possible ways to roll k dice with the associated
+        # probability distributions
 
-    for k in xrange(1, 6):
-        seen = dict()
-        print r'  {'
-        for x in it.product(range(1, 7), repeat=k):
-            m = canon(x)
-            seen[m] = seen.get(m, 0) + 1
-        total = float(6 ** k)
-        for key, value in seen.iteritems():
-            print r'    {diceroll(' + tocpp(key) + '), ' + str(float(value)/total) + '},'
-        print r'  },'
-    print r'};'
+        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists() { return {'
 
-    print r'} // namespace dice'
+        for k in xrange(1, 6):
+            seen = dict()
+            print >>fp, r'  {'
+            for x in it.product(range(1, 7), repeat=k):
+                m = canon(x)
+                seen[m] = seen.get(m, 0) + 1
+            total = float(6 ** k)
+            for key, value in seen.iteritems():
+                print >>fp, r'    {diceroll(' + tocpp(key) + '), ' + str(float(value)/total) + '},'
+            print >>fp, r'  },'
+        print >>fp, r'};}'
+
+        print >>fp, r'} // namespace dice'

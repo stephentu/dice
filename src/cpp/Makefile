@@ -5,26 +5,30 @@ DEBUG ?= 1
 PWD := $(shell pwd)
 
 ifeq ($(strip $(DEBUG)),1)
-        CXXFLAGS := -I$(PWD) -Wall -g -fno-omit-frame-pointer --std=c++0x
+        CXXFLAGS := -MD -I$(PWD) -Wall -g -fno-omit-frame-pointer --std=c++0x
 else
-        CXXFLAGS := -DNDEBUG -I$(PWD) -Wall -Werror -g -O3 -funroll-loops -ffast-math -fno-omit-frame-pointer --std=c++0x
+        CXXFLAGS := -MD -DNDEBUG -I$(PWD) -Wall -Werror -g -O3 -funroll-loops -ffast-math -fno-omit-frame-pointer --std=c++0x
 endif
 
 LDFLAGS := -lpthread -lrt 
 
-HEADERS := diceenum.hh dice.hh pretty_printers.hh
-SRCFILES := 
+SRCFILES := diceenum.cc
 OBJFILES = $(SRCFILES:.cc=.o)
 
 PROGS := dice
 
 all: $(PROGS)
 
-%.o: %.cc $(HEADERS)
+%.o: %.cc 
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(PROGS): %: %.o $(OBJFILES)
 	$(CXX) $< -o $@ $(OBJFILES) $(LDFLAGS)
+
+DEPFILES := $(wildcard *.d)
+ifneq ($(DEPFILES),)
+-include $(DEPFILES)
+endif
 
 .PHONY: clean
 clean:
