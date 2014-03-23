@@ -29,7 +29,7 @@ if __name__ == '__main__':
     print r'struct rollinfo {'
     print r'  unsigned id_;'
     print r'  std::vector< diceroll > partials_;'
-    print r'  rollinfo() id_(), partials_() {}'
+    print r'  rollinfo() : id_(), partials_() {}'
     print r'  rollinfo(unsigned id, const std::vector< diceroll > &partials) : id_(id), partials_(partials) {}'
     print r'};'
     print r'const static std::unordered_map<diceroll, rollinfo> rollinfos = {'

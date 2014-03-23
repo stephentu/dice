@@ -5,7 +5,7 @@ namespace dice {
 struct rollinfo {
   unsigned id_;
   std::vector< diceroll > partials_;
-  rollinfo() id_(), partials_() {}
+  rollinfo() : id_(), partials_() {}
   rollinfo(unsigned id, const std::vector< diceroll > &partials) : id_(id), partials_(partials) {}
 };
 const static std::unordered_map<diceroll, rollinfo> rollinfos = {
