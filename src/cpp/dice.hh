@@ -74,7 +74,6 @@ struct diceroll {
       for (auto e : v)
         counts_[e-1]++;
     }
-    check_proper();
   }
 
   inline unsigned int
@@ -151,9 +150,8 @@ struct diceroll {
     return std::hash<uint32_t>()(encode());
   }
 
-private:
   inline void
-  check_proper() const
+  assert_proper() const
   {
     unsigned s = 0;
     for (unsigned i = 0; i < 6; i++) {

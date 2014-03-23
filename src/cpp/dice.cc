@@ -11,7 +11,17 @@ using namespace dice;
 static inline unsigned int
 diceid(const diceroll &d)
 {
-  return rollid[d];
+  d.assert_proper(); // not a partial
+  assert(rollinfos.find(d) != rollinfos.end()); // found in pre-computed map
+  return rollinfos[d].id_;
+}
+
+static inline const std::vector< diceroll > &
+dicepartials(const diceroll &d)
+{
+  d.assert_proper();
+  assert(rollinfos.find(d) != rollinfos.end());
+  return rollinfos[d].partials_;
 }
 
 int
