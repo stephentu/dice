@@ -1,6 +1,7 @@
 #include "dice.hh"
 #include "diceenum.hh"
 #include "log2.hh"
+#include "timer.hh"
 
 #include <chrono>
 #include <random>
@@ -138,8 +139,10 @@ static void
 go(double tol)
 {
   // XXX: single threaded execution for now
-  for (;;) {
+  for (unsigned iter; ; iter++) {
+    timer iter_timer, rate_timer;
     abs_max_change = 0.0; // reset
+    unsigned states_updated = 0;
     for (uint32_t flags = 0; flags < (1<<dicestate::nbits_flags); flags++) {
       for (unsigned turn = 0; turn <= 3; turn++) {
         const auto topidx = flags & dicestate::MASK_TOP_SCORES;
@@ -150,8 +153,13 @@ go(double tol)
           update_with_scores(flags, turn, possibletopscores[topidx]);
         else
           update_with_scores(flags, turn, {0});
+        if (!(++states_updated % 1000))
+          cout << "Current rate: " << (1000./rate_timer.lap_ms()) << " states/ms" << endl;
       }
     }
+    cout << "Finished iteration " << (iter+1) << " in "
+         << (iter_timer.lap_ms()) << " ms" << ", with |max_change| = "
+         << abs_max_change << endl;
     if (abs_max_change <= tol)
       break;
   }

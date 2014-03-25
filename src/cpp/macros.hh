@@ -11,6 +11,8 @@
     char __XCONCAT(__padout, __COUNTER__)[0] __attribute__((aligned(CACHELINE_SIZE)))
 #define PACKED __attribute__((packed))
 
+#define compiler_barrier() asm volatile("" ::: "memory")
+
 #define NEVER_INLINE  __attribute__((noinline))
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define UNUSED __attribute__((unused))
