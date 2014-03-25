@@ -139,7 +139,7 @@ static void
 go(double tol)
 {
   // XXX: single threaded execution for now
-  for (unsigned iter; ; iter++) {
+  for (unsigned iter = 0; ; iter++) {
     timer iter_timer, rate_timer;
     abs_max_change = 0.0; // reset
     unsigned states_updated = 0;

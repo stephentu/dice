@@ -119,7 +119,6 @@ if __name__ == '__main__':
         print >>fp, r'};'
         print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos();'
         print >>fp, r'const std::unordered_map<diceroll, rollinfo> rollinfos = MakeRollInfos();'
-        print >>fp, r'const unsigned lg_rollinfos_size = ceil_log2(rollinfos.size());'
         print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists();'
         print >>fp, r'const std::vector< std::unordered_map<diceroll, double> > rolldists = MakeRollDists();'
         print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores();'
