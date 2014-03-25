@@ -36,7 +36,9 @@ dicescores(const diceroll &d)
 }
 
 // this is what we are trying to learn!
-static vector< double > values;
+//static vector< double > values;
+static unordered_map< uint32_t, double > values;
+
 static double abs_max_change = 0.0;
 
 static inline void
@@ -84,8 +86,10 @@ update(const dicestate &s)
       assert(keep < 5);
       const unsigned roll = 5 - keep;
       for (auto &p : *it) {
+        assert(p.count() == keep);
         double sum = 0.0;
         for (auto &outcome : rolldists[roll - 1]) {
+          assert(outcome.first.count() == roll);
           const auto r = p.merge(outcome.first);
           r.assert_proper();
           sum += values[ s.roll(r).encode() ] * outcome.second;
@@ -162,9 +166,14 @@ main(int argc, char **argv)
   d.roll(gen);
   cout << d << endl;
 
+  cout << "nbits_flags: " << dicestate::nbits_flags << endl;
+  cout << "nbits_max_top_score: " << dicestate::nbits_max_top_score << endl;
+  cout << "nbits_max_roll_number: " << dicestate::nbits_max_roll_number << endl;
+  cout << "nbits_roll_state: " << dicestate::nbits_roll_state << endl;
   cout << "nbits: " << dicestate::encode_bits << endl;
+  cout << "len: " << (1UL << dicestate::encode_bits) << endl;
 
-  values.resize( 1 << dicestate::encode_bits );
+  //values.resize( 1UL << dicestate::encode_bits );
 
   go(1e-1);
   return 0;

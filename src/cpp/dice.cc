@@ -6,7 +6,7 @@ namespace dice {
 uint32_t
 dicestate::encode() const
 {
-  roll_state_.assert_proper();
+  assert( roll_state_.proper() || roll_state_.empty() );
   uint32_t value = 0;
   assert( !(flags_ & ~((1<<nbits_flags)-1)) );
   value |= flags_;

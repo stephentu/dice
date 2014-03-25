@@ -80,12 +80,21 @@ struct diceroll {
     }
   }
 
-  inline unsigned int
+  inline unsigned
   sum() const
   {
-    unsigned int s = 0;
+    unsigned s = 0;
     for (unsigned i = 0; i < 6; i++)
       s += (i+1)*counts_[i];
+    return s;
+  }
+
+  inline unsigned
+  count() const
+  {
+    unsigned s = 0;
+    for (unsigned i = 0; i < 6; i++)
+      s += counts_[i];
     return s;
   }
 
@@ -153,7 +162,7 @@ struct diceroll {
   {
     diceroll d(*this);
     for (unsigned i = 0; i < 6; i++)
-      d.counts_[i] = that.counts_[i];
+      d.counts_[i] += that.counts_[i];
     return d;
   }
 
@@ -163,20 +172,22 @@ struct diceroll {
     return std::hash<uint32_t>()(encode());
   }
 
+  inline bool
+  proper() const
+  {
+    return count() == 5;
+  }
+
   inline void
   assert_proper() const
   {
-    unsigned s = 0;
-    for (unsigned i = 0; i < 6; i++) {
-      assert(counts_[i] <= 5);
-      s += counts_[i];
-    }
-    assert(s == 5);
+    assert(proper());
   }
 
   inline bool
   empty() const
   {
+    // faster than count() == 0
     for (unsigned i = 0; i < 6; i++)
       if (counts_[i])
         return false;
