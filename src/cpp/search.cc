@@ -17,7 +17,7 @@ diceid(const diceroll &d)
   return it->second.id_;
 }
 
-static inline const std::vector< diceroll > &
+static inline const vector< vector< diceroll > > &
 dicepartials(const diceroll &d)
 {
   d.assert_proper();
@@ -26,7 +26,7 @@ dicepartials(const diceroll &d)
   return it->second.partials_;
 }
 
-static inline const std::vector< unsigned > &
+static inline const vector< unsigned > &
 dicescores(const diceroll &d)
 {
   d.assert_proper();
@@ -36,7 +36,122 @@ dicescores(const diceroll &d)
 }
 
 // this is what we are trying to learn!
-static std::vector< double > values;
+static vector< double > values;
+static double abs_max_change = 0.0;
+
+static inline void
+update_value(uint32_t encoding, double newvalue)
+{
+  const double oldvalue = values[encoding];
+  abs_max_change = max(abs_max_change, fabs(oldvalue - newvalue));
+  values[encoding] = newvalue;
+}
+
+static void
+update(const dicestate &s)
+{
+  if ((s.flags_ & dicestate::MASK_CATEGORIES) == dicestate::MASK_CATEGORIES) {
+    assert(s.roll_number_ == 0);
+    assert(s.top_score_ == 0);
+    assert(s.roll_state_.empty());
+    // end state, nothing to do
+    return;
+  }
+  if (s.roll_number_ == 0) {
+    assert(s.roll_state_.empty());
+    // can only roll (and we've asserted the game isn't over yet)
+    // we set values(s) to the weighted average of all possible
+    // rolls
+
+    double sum = 0.0;
+    for (auto &p : rolldists.back()) {
+      p.first.assert_proper();
+      sum += values[ s.roll(p.first).encode() ] * p.second;
+    }
+
+    update_value(s.encode(), sum);
+    return;
+  }
+
+  double best_so_far = 0.0;
+
+  // can roll again
+  if (s.roll_number_ < 3 ||
+      (s.roll_number_ == 3 && !s.get_USED_BONUS_ROLL())) {
+    const auto &partials = dicepartials(s.roll_state_);
+    unsigned keep = 0;
+    for (auto it = partials.begin(); it != partials.end(); ++it, ++keep) {
+      const unsigned roll = 5 - keep;
+      assert(roll > 0);
+      for (auto &p : *it) {
+        double sum = 0.0;
+        for (auto &outcome : rolldists[roll - 1]) {
+          const auto r = p.merge(outcome.first);
+          r.assert_proper();
+          sum += values[ s.roll(r).encode() ] * outcome.second;
+        }
+        best_so_far = max(best_so_far, sum);
+      }
+    }
+  }
+
+  // can accept
+  const auto &scores = dicescores(s.roll_state_);
+  assert(scores.size() == NUM_CATEGORIES);
+  for (unsigned c = 0; c < NUM_CATEGORIES; c++) {
+    if (s.has_selected((categories) c))
+      continue;
+    const double score = scores[c] + values[ s.accept((categories) c).encode() ];
+    best_so_far = max(best_so_far, score);
+  }
+
+  update_value(s.encode(), best_so_far);
+}
+
+static void
+update_with_scores(uint32_t flags, unsigned turn, const vector<unsigned> &scores)
+{
+  for (auto topscore : scores) {
+    if (turn == 0) {
+      dicestate s;
+      s.flags_ = flags;
+      s.top_score_ = topscore;
+      update(s);
+    } else {
+      for (auto &p : rollinfos) {
+        dicestate s;
+        s.flags_ = flags;
+        s.top_score_ = topscore;
+        s.roll_number_ = turn;
+        s.roll_state_ = p.first;
+        update(s);
+      }
+    }
+  }
+}
+
+static void
+go(double tol)
+{
+  // XXX: single threaded execution for now
+  for (;;) {
+    abs_max_change = 0.0; // reset
+    for (uint32_t flags = 0; flags < (1<<dicestate::nbits_flags); flags++) {
+      for (unsigned turn = 0; turn <= 3; turn++) {
+        const auto topidx = flags & dicestate::MASK_TOP_SCORES;
+        assert(topidx < possibletopscores.size());
+        if (topidx != dicestate::MASK_TOP_SCORES)
+          // top scores still matter, because we haven't
+          // chosen all of the top categories yet
+          update_with_scores(flags, turn, possibletopscores[topidx]);
+        else
+          update_with_scores(flags, turn, {0});
+      }
+    }
+    if (abs_max_change <= tol)
+      break;
+  }
+}
 
 int
 main(int argc, char **argv)
@@ -47,17 +162,10 @@ main(int argc, char **argv)
   d.roll(gen);
   cout << d << endl;
 
-  // count number of bits needed to index each state
-  const unsigned nbits =
-    NUM_CATEGORIES + /* bit per category */
-    2 + /* 1 bit for used bonus roll and another for top points possible */
-    lg_rollinfos_size + /* number of possible full dice hands */
-    ceil_log2_const(3) /* after 1st, 2nd, or 3rd roll */
-    ;
+  cout << "nbits: " << dicestate::encode_bits << endl;
 
-  cout << "nbits: " << nbits << endl;
+  values.resize( 1 << dicestate::encode_bits );
 
-  values.resize( 1 << nbits );
-
+  go(1e-1);
   return 0;
 }

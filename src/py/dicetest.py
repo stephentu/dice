@@ -112,16 +112,18 @@ if __name__ == '__main__':
         print >>fp, r'namespace dice {'
         print >>fp, r'struct rollinfo {'
         print >>fp, r'  unsigned id_;'
-        print >>fp, r'  std::vector< diceroll > partials_;'
+        print >>fp, r'  std::vector< std::vector< diceroll > > partials_;'
         print >>fp, r'  std::vector< unsigned > scores_;'
         print >>fp, r'  rollinfo() : id_(), partials_(), scores_() {}'
-        print >>fp, r'  rollinfo(unsigned id, const std::vector< diceroll > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
+        print >>fp, r'  rollinfo(unsigned id, const std::vector< std::vector< diceroll > > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
         print >>fp, r'};'
         print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos();'
         print >>fp, r'const std::unordered_map<diceroll, rollinfo> rollinfos = MakeRollInfos();'
         print >>fp, r'const unsigned lg_rollinfos_size = ceil_log2(rollinfos.size());'
         print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists();'
         print >>fp, r'const std::vector< std::unordered_map<diceroll, double> > rolldists = MakeRollDists();'
+        print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores();'
+        print >>fp, r'const std::vector< std::vector< unsigned > > possibletopscores = MakePossibleTopScores();'
         print >>fp, r'} // namespace dice'
 
     with open(cppfile, 'w') as fp:
@@ -133,13 +135,17 @@ if __name__ == '__main__':
         for x in it.product(range(0, 6), repeat=6):
             if sum(x) == 5:
                 values = dicevalues(x)
-                partials = set()
+                partials = []
+                partials.append(tuple()) # keep nothing!
                 for k in xrange(1, 5):
+                    # k = number of dice to keep
+                    inner_partials = set()
                     for p in it.combinations(values, k):
-                        partials.add(p)
-                partials.add(tuple()) # keep nothing!
+                        inner_partials.add(p)
+                    partials.append(tuple(inner_partials))
                 scores = [SCORE_FNS[i](x) for i in ALL_CATEGORIES]
-                rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in partials) + '}, ' + tocpp(scores) + ')'
+                rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join('{' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in inner_partial) + \
+                        '}' for inner_partial in partials) + '}, ' + tocpp(scores) + ')'
                 print >>fp, r'  {diceroll(' + tocpp(x) + '), ' + rollinfo + '},'
                 i += 1
         print >>fp, r'};}'
@@ -161,4 +167,18 @@ if __name__ == '__main__':
             print >>fp, r'  },'
         print >>fp, r'};}'
 
+        print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores() { return {'
+        all_values = []
+        for idx in xrange(1<<6):
+            values = []
+            for i in xrange(6):
+                if idx & (1<<i):
+                    values.append(tuple((i+1)*j for j in xrange(0, 6)))
+            all_values.append(tuple(sorted(set(map(sum, it.product(*values))))))
+        print >>fp, ', '.join(map(tocpp, all_values))
+
+        print >>fp, r'};}'
+
         print >>fp, r'} // namespace dice'
+
+# vim: set sts=4 ts=4 sw=4:
