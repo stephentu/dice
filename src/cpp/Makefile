@@ -15,7 +15,7 @@ LDFLAGS := -lpthread -lrt
 SRCFILES := dice.cc diceenum.cc
 OBJFILES = $(SRCFILES:.cc=.o)
 
-PROGS := search
+PROGS := search test
 
 all: $(PROGS)
 

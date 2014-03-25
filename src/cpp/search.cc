@@ -81,8 +81,8 @@ update(const dicestate &s)
     const auto &partials = dicepartials(s.roll_state_);
     unsigned keep = 0;
     for (auto it = partials.begin(); it != partials.end(); ++it, ++keep) {
+      assert(keep < 5);
       const unsigned roll = 5 - keep;
-      assert(roll > 0);
       for (auto &p : *it) {
         double sum = 0.0;
         for (auto &outcome : rolldists[roll - 1]) {

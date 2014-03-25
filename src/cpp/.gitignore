@@ -2,3 +2,5 @@
 *.d
 config.mk
 /search
+/test
+/tags
