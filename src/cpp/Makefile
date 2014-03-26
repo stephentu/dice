@@ -12,7 +12,7 @@ endif
 
 LDFLAGS := -lpthread -lrt 
 
-SRCFILES := dice.cc diceenum.cc
+SRCFILES := dice.cc diceenum.1.cc diceenum.2.cc diceenum.3.cc
 OBJFILES = $(SRCFILES:.cc=.o)
 
 PROGS := search test
@@ -32,4 +32,4 @@ endif
 
 .PHONY: clean
 clean:
-	rm -f *.o $(PROGS)
+	rm -f *.o *.d $(PROGS)

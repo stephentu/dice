@@ -80,6 +80,17 @@ struct diceroll {
     }
   }
 
+  diceroll(unsigned c0,
+           unsigned c1,
+           unsigned c2,
+           unsigned c3,
+           unsigned c4,
+           unsigned c5)
+  {
+    counts_[0] = c0; counts_[1] = c1; counts_[2] = c2;
+    counts_[3] = c3; counts_[4] = c4; counts_[5] = c5;
+  }
+
   inline unsigned
   sum() const
   {

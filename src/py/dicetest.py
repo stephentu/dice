@@ -79,7 +79,7 @@ SCORE_FNS = {
 }
 
 if __name__ == '__main__':
-    (_, hdrfile, cppfile) = sys.argv
+    (_, prefix) = sys.argv
 
     def tocpp(t):
         return '{' + ','.join(map(str, t)) + '}'
@@ -104,7 +104,7 @@ if __name__ == '__main__':
         return tuple(ret)
 
     # make header file
-    with open(hdrfile, 'w') as fp:
+    with open(prefix + '.hh', 'w') as fp:
         print >>fp, r'// WARNING: auto-generated file'
         print >>fp, r'#pragma once'
         print >>fp, r'#include "dice.hh"'
@@ -127,9 +127,9 @@ if __name__ == '__main__':
         print >>fp, r'const std::vector< std::vector< unsigned > > possibletopscores = MakePossibleTopScores();'
         print >>fp, r'} // namespace dice'
 
-    with open(cppfile, 'w') as fp:
+    with open(prefix + '.1.cc', 'w') as fp:
         print >>fp, r'// WARNING: auto-generated file'
-        print >>fp, r'#include "%s"' % (os.path.basename(hdrfile))
+        print >>fp, r'#include "%s"' % (os.path.basename(prefix+'.hh'))
         print >>fp, r'namespace dice {'
         print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos() {'
         print >>fp, r'  std::unordered_map<diceroll, rollinfo> ret;'
@@ -151,16 +151,22 @@ if __name__ == '__main__':
                 for inner_partial in partials:
                     print >>fp, r'    {'
                     print >>fp, r'      std::vector< diceroll > p;'
-                    for x in inner_partial:
-                        print >>fp, r'      p.emplace_back(' + wrapvec(tocpp(canon(x)), 'unsigned') + ');'
+                    for y in inner_partial:
+                        print >>fp, r'      p.emplace_back(' + ', '.join(map(str, canon(y))) + ');'
                     print >>fp, r'      partials.emplace_back(p);'
                     print >>fp, r'    }'
                 rollinfo = r'rollinfo(' + str(i) + ', partials, ' + wrapvec(tocpp(scores), 'unsigned') + ')'
-                print >>fp, r'    ret[diceroll(' + wrapvec(tocpp(x), 'unsigned') + ')] = ' + rollinfo + ';'
+                print >>fp, r'    ret[diceroll(' + ', '.join(map(str, x)) + ')] = ' + rollinfo + ';'
                 print >>fp, r'  }'
                 i += 1
         print >>fp, r'  return ret;'
         print >>fp, r'}'
+        print >>fp, r'} // namespace dice'
+
+    with open(prefix + '.2.cc', 'w') as fp:
+        print >>fp, r'// WARNING: auto-generated file'
+        print >>fp, r'#include "%s"' % (os.path.basename(prefix+'.hh'))
+        print >>fp, r'namespace dice {'
 
         # now we pre-compute all possible ways to roll k dice with the associated
         # probability distributions
@@ -177,13 +183,19 @@ if __name__ == '__main__':
                 seen[m] = seen.get(m, 0) + 1
             total = float(6 ** k)
             for key, value in seen.iteritems():
-                print >>fp, r'    m[diceroll(' + wrapvec(tocpp(key), 'unsigned') + ')] = ' + str(float(value)/total) + ';'
+                print >>fp, r'    m[diceroll(' + ', '.join(map(str, key)) + ')] = ' + str(float(value)/total) + ';'
             print >>fp, r'    ret.emplace_back(m);'
             print >>fp, r'  }'
 
         print >>fp, r'  return ret;'
         print >>fp, r'}'
+        print >>fp, r'} // namespace dice'
 
+
+    with open(prefix + '.3.cc', 'w') as fp:
+        print >>fp, r'// WARNING: auto-generated file'
+        print >>fp, r'#include "%s"' % (os.path.basename(prefix+'.hh'))
+        print >>fp, r'namespace dice {'
         print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores() {'
         print >>fp, r'  std::vector< std::vector< unsigned > > ret;'
         for idx in xrange(1<<6):
@@ -192,10 +204,14 @@ if __name__ == '__main__':
                 if idx & (1<<i):
                     values.append(tuple((i+1)*j for j in xrange(0, 6)))
             unique_values = tuple(sorted(set(map(sum, it.product(*values)))))
-            print >>fp, r'  ret.emplace_back(' + wrapvec(tocpp(unique_values), 'unsigned') + ');'
+            print >>fp, r'  {'
+            print >>fp, r'    std::vector<unsigned> p;'
+            for v in unique_values:
+                print >>fp, r'    p.push_back(' +str(v) + ');'
+            print >>fp, r'    ret.emplace_back(p);'
+            print >>fp, r'  }'
         print >>fp, r'  return ret;'
         print >>fp, r'}'
-
         print >>fp, r'} // namespace dice'
 
 # vim: set sts=4 ts=4 sw=4:
