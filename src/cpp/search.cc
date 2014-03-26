@@ -153,8 +153,11 @@ go(double tol)
           update_with_scores(flags, turn, possibletopscores[topidx]);
         else
           update_with_scores(flags, turn, {0});
-        if (!(++states_updated % 1000))
-          cout << "Current rate: " << (1000./rate_timer.lap_ms()) << " states/ms" << endl;
+        const unsigned bsize = 100;
+        if (!(++states_updated % bsize))
+          cout << "Current rate: " << (double(bsize)/rate_timer.lap_ms())
+               << " states/ms, |max_change|="
+               << abs_max_change << endl;
       }
     }
     cout << "Finished iteration " << (iter+1) << " in "
