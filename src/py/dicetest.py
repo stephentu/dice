@@ -83,6 +83,8 @@ if __name__ == '__main__':
 
     def tocpp(t):
         return '{' + ','.join(map(str, t)) + '}'
+    def wrapvec(s, tpe):
+        return 'std::vector<' + tpe + '>(' + s + ')'
 
     def dicevalues(dices):
         '''
@@ -129,7 +131,8 @@ if __name__ == '__main__':
         print >>fp, r'// WARNING: auto-generated file'
         print >>fp, r'#include "%s"' % (os.path.basename(hdrfile))
         print >>fp, r'namespace dice {'
-        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos() { return {'
+        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos() {'
+        print >>fp, r'  std::unordered_map<diceroll, rollinfo> ret;'
         i = 0
         for x in it.product(range(0, 6), repeat=6):
             if sum(x) == 5:
@@ -142,41 +145,56 @@ if __name__ == '__main__':
                     for p in it.combinations(values, k):
                         inner_partials.add(p)
                     partials.append(tuple(inner_partials))
-                scores = [SCORE_FNS[i](x) for i in ALL_CATEGORIES]
-                rollinfo = r'rollinfo(' + str(i) + ', {' + ', '.join('{' + ', '.join(r'diceroll(' + tocpp(canon(x)) + ')' for x in inner_partial) + \
-                        '}' for inner_partial in partials) + '}, ' + tocpp(scores) + ')'
-                print >>fp, r'  {diceroll(' + tocpp(x) + '), ' + rollinfo + '},'
+                scores = [SCORE_FNS[i0](x) for i0 in ALL_CATEGORIES]
+                print >>fp, r'  {'
+                print >>fp, r'    std::vector< std::vector< diceroll > > partials;'
+                for inner_partial in partials:
+                    print >>fp, r'    {'
+                    print >>fp, r'      std::vector< diceroll > p;'
+                    for x in inner_partial:
+                        print >>fp, r'      p.emplace_back(' + wrapvec(tocpp(canon(x)), 'unsigned') + ');'
+                    print >>fp, r'      partials.emplace_back(p);'
+                    print >>fp, r'    }'
+                rollinfo = r'rollinfo(' + str(i) + ', partials, ' + wrapvec(tocpp(scores), 'unsigned') + ')'
+                print >>fp, r'    ret[diceroll(' + wrapvec(tocpp(x), 'unsigned') + ')] = ' + rollinfo + ';'
+                print >>fp, r'  }'
                 i += 1
-        print >>fp, r'};}'
+        print >>fp, r'  return ret;'
+        print >>fp, r'}'
 
         # now we pre-compute all possible ways to roll k dice with the associated
         # probability distributions
 
-        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists() { return {'
+        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists() {'
+        print >>fp, r'  std::vector< std::unordered_map<diceroll, double> > ret;'
 
         for k in xrange(1, 6):
-            seen = dict()
             print >>fp, r'  {'
+            print >>fp, r'    std::unordered_map<diceroll, double> m;'
+            seen = dict()
             for x in it.product(range(1, 7), repeat=k):
                 m = canon(x)
                 seen[m] = seen.get(m, 0) + 1
             total = float(6 ** k)
             for key, value in seen.iteritems():
-                print >>fp, r'    {diceroll(' + tocpp(key) + '), ' + str(float(value)/total) + '},'
-            print >>fp, r'  },'
-        print >>fp, r'};}'
+                print >>fp, r'    m[diceroll(' + wrapvec(tocpp(key), 'unsigned') + ')] = ' + str(float(value)/total) + ';'
+            print >>fp, r'    ret.emplace_back(m);'
+            print >>fp, r'  }'
 
-        print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores() { return {'
-        all_values = []
+        print >>fp, r'  return ret;'
+        print >>fp, r'}'
+
+        print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores() {'
+        print >>fp, r'  std::vector< std::vector< unsigned > > ret;'
         for idx in xrange(1<<6):
             values = []
             for i in xrange(6):
                 if idx & (1<<i):
                     values.append(tuple((i+1)*j for j in xrange(0, 6)))
-            all_values.append(tuple(sorted(set(map(sum, it.product(*values))))))
-        print >>fp, ', '.join(map(tocpp, all_values))
-
-        print >>fp, r'};}'
+            unique_values = tuple(sorted(set(map(sum, it.product(*values)))))
+            print >>fp, r'  ret.emplace_back(' + wrapvec(tocpp(unique_values), 'unsigned') + ');'
+        print >>fp, r'  return ret;'
+        print >>fp, r'}'
 
         print >>fp, r'} // namespace dice'
 
