@@ -69,11 +69,12 @@ struct ctrl {
 class batcher {
 public:
   batcher(unsigned batch_size, concurrent_queue<work> *queue)
-    : batch_size_(batch_size), queue_(queue) {}
+    : batch_size_(batch_size), queue_(queue), n_() {}
 
   inline void
   enqueue(const dicestate &state)
   {
+    n_++;
     states_.emplace_back(state);
     push(true);
   }
@@ -81,13 +82,21 @@ public:
   inline void
   enqueue(dicestate &&state)
   {
+    n_++;
     states_.emplace_back(state);
     push(true);
+  }
+
+  inline unsigned
+  numenqueued() const
+  {
+    return n_;
   }
 
   inline void
   finish()
   {
+    n_ = 0;
     push(false);
   }
 
@@ -104,6 +113,7 @@ private:
   unsigned batch_size_;
   concurrent_queue<work> *queue_;
   vector<dicestate> states_;
+  unsigned n_;
 };
 
 static concurrent_queue< work > work_queue;
@@ -277,7 +287,7 @@ go(unsigned nworkers, double tol)
 
   batcher b(work::batch_size, &work_queue);
   for (unsigned iter = 0; ; iter++) {
-    timer iter_timer;
+    timer enq_timer, finish_timer;
     reset_abs_max_changes();
     for (uint32_t flags = 0; flags < (1<<dicestate::nbits_flags); flags++) {
       for (unsigned turn = 0; turn <= dicestate::max_roll_number; turn++) {
@@ -293,7 +303,11 @@ go(unsigned nworkers, double tol)
         }
       }
     }
+    const unsigned enqueued = b.numenqueued();
     b.finish();
+    cout << "Enqueued " << enqueued << " states in "
+         << (enq_timer.lap_ms()/1000.) << " sec" << endl;
+
     for (unsigned i = 0; i < nworkers; i++)
       work_queue.push(work(work::sleep_tag));
     for (unsigned i = 0; i < nworkers; i++) {
@@ -308,7 +322,7 @@ go(unsigned nworkers, double tol)
     }
     const double abs_max_change = query_abs_max_changes();
     cout << "Finished iteration " << (iter+1) << " in "
-         << (iter_timer.lap_ms()) << " ms" << ", with |max_change| = "
+         << (finish_timer.lap_ms()/1000.) << " sec" << ", with |max_change| = "
          << abs_max_change << endl;
     if (abs_max_change <= tol)
       break;
