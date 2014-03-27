@@ -3,6 +3,27 @@
 
 namespace dice {
 
+diceroll::diceroll(uint32_t encoding)
+{
+  assert(encoding < reverserollinfos.size());
+  *this = reverserollinfos[encoding];
+}
+
+uint32_t
+diceroll::encode() const
+{
+  return diceid(*this);
+}
+
+dicestate::dicestate(uint32_t encoding)
+{
+  flags_ = encoding & ((1<<nbits_flags)-1);
+  top_score_ = (encoding >> nbits_flags) & ((1<<nbits_max_top_score)-1);
+  roll_number_ = (encoding >> (nbits_flags + nbits_max_top_score)) &
+    ((1<<nbits_max_roll_number)-1);
+  roll_state_ = diceroll(encoding >> (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
+}
+
 uint32_t
 dicestate::encode() const
 {

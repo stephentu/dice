@@ -9,33 +9,6 @@
 using namespace std;
 using namespace dice;
 
-static inline unsigned int
-diceid(const diceroll &d)
-{
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.id_;
-}
-
-static inline const vector< vector< diceroll > > &
-dicepartials(const diceroll &d)
-{
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.partials_;
-}
-
-static inline const vector< unsigned > &
-dicescores(const diceroll &d)
-{
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.scores_;
-}
-
 // this is what we are trying to learn!
 //static vector< double > values;
 static unordered_map< uint32_t, double > values;

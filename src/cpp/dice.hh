@@ -64,6 +64,9 @@ struct diceroll {
 
   diceroll(const diceroll &) = default;
 
+  // decode
+  diceroll(uint32_t encoding);
+
   /**
    * initializes to the input vector
    */
@@ -119,14 +122,7 @@ struct diceroll {
     return s;
   }
 
-  inline uint32_t
-  encode() const
-  {
-    uint32_t s = 0;
-    for (unsigned i = 0; i < 6; i++)
-      s |= counts_[i] << (3 * i);
-    return s;
-  }
+  uint32_t encode() const;
 
   template <typename PRNG>
   inline void
@@ -217,12 +213,14 @@ struct dicestate {
   unsigned roll_number_;
   diceroll roll_state_;
 
-  dicestate() : flags_(0), top_score_(0), roll_number_(0), roll_state_() {}
+  dicestate() : flags_(), top_score_(), roll_number_(), roll_state_() {}
 
   dicestate(uint32_t flags, unsigned top_score,
             unsigned roll_number, const diceroll &roll_state)
     : flags_(flags), top_score_(top_score),
       roll_number_(roll_number), roll_state_(roll_state) {}
+
+  dicestate(uint32_t encoding);
 
 #define GETTER_SETTER(name, flag) \
   inline bool \
