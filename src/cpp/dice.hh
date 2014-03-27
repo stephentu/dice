@@ -62,26 +62,8 @@ struct diceroll {
 
   enum class type { BUCKETS, VALUES };
 
-  diceroll(const diceroll &) = default;
-
   // decode
   diceroll(uint32_t encoding);
-
-  /**
-   * initializes to the input vector
-   */
-  diceroll(const std::vector<unsigned> &v, type t = type::BUCKETS)
-  {
-    reset();
-    if (t == type::BUCKETS) {
-      assert(v.size() == 6);
-      for (unsigned i = 0; i < 6; i++)
-        counts_[i] = v[i];
-    } else {
-      for (auto e : v)
-        counts_[e-1]++;
-    }
-  }
 
   diceroll(unsigned c0,
            unsigned c1,
@@ -122,6 +104,8 @@ struct diceroll {
     return s;
   }
 
+  // XXX: only **proper** rolls + the empty roll can be encoded!
+  // (no other partial rolls can be encoded)
   uint32_t encode() const;
 
   template <typename PRNG>
@@ -260,7 +244,7 @@ struct dicestate {
   static const unsigned nbits_max_roll_number =
     ceil_log2_const(max_roll_number + 1);
   static const unsigned nbits_roll_state =
-    ceil_log2_const(diceroll::nproper_rolls);
+    ceil_log2_const(diceroll::nproper_rolls + 1);
 
   // number of bits used to encode (top bits are empty)
   static const unsigned encode_bits =

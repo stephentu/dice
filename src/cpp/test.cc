@@ -15,8 +15,7 @@ test_encode_decode()
   s.flags_ = (1<<CAT_1) | (1<<CAT_4) | (1<<CAT_SMALLSTRAIGHT);
   s.top_score_ = (3*1) + (4*4);
   s.roll_number_ = 1;
-  const auto roll = vector<unsigned>({ 1, 1, 3, 6, 6 });
-  s.roll_state_ = diceroll(roll, diceroll::type::VALUES);
+  s.roll_state_ = diceroll(2, 0, 1, 0, 0, 2);
 
   const auto encoded = s.encode();
   ALWAYS_ASSERT(encoded ==

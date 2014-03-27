@@ -130,7 +130,7 @@ query_abs_max_changes()
 static inline void
 update_value(unsigned tid, uint32_t encoding, double newvalue)
 {
-  assert(tid < values.size());
+  assert(tid < abs_max_changes.size());
   concurrent_hash_map<uint32_t, double>::accessor acc;
   const auto found = values.insert(acc, encoding);
   const double oldvalue = found ? acc->second : 0.0;

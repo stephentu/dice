@@ -5,14 +5,20 @@ namespace dice {
 
 diceroll::diceroll(uint32_t encoding)
 {
-  assert(encoding < reverserollinfos.size());
-  *this = reverserollinfos[encoding];
+  assert(encoding <= reverserollinfos.size());
+  if (encoding == reverserollinfos.size())
+    reset();
+  else
+    *this = reverserollinfos[encoding];
 }
 
 uint32_t
 diceroll::encode() const
 {
-  return diceid(*this);
+  if (empty())
+    return rollinfos.size();
+  else
+    return diceid(*this);
 }
 
 dicestate::dicestate(uint32_t encoding)
