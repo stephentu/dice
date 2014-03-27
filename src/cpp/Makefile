@@ -10,7 +10,7 @@ else
         CXXFLAGS := -MD -DNDEBUG -I$(PWD) -Wall -Werror -O3 -funroll-loops -ffast-math -fno-omit-frame-pointer --std=c++0x
 endif
 
-LDFLAGS := -lpthread -lrt 
+LDFLAGS := -lpthread -lrt -ltbb
 
 SRCFILES := dice.cc diceenum.1.cc diceenum.2.cc diceenum.3.cc
 OBJFILES = $(SRCFILES:.cc=.o)
