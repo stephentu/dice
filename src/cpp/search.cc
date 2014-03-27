@@ -132,9 +132,8 @@ update_value(unsigned tid, uint32_t encoding, double newvalue)
 {
   assert(tid < values.size());
   concurrent_hash_map<uint32_t, double>::accessor acc;
-  const auto found = values.find(acc, encoding);
-  assert(found);
-  const double oldvalue = acc->second;
+  const auto found = values.insert(acc, encoding);
+  const double oldvalue = found ? acc->second : 0.0;
   *abs_max_changes[tid] = max(*abs_max_changes[tid], fabs(oldvalue - newvalue));
   acc->second = newvalue;
 }
@@ -144,8 +143,7 @@ read_value(uint32_t encoding)
 {
   concurrent_hash_map<uint32_t, double>::const_accessor acc;
   const auto found = values.find(acc, encoding);
-  assert(found);
-  return acc->second;
+  return found ? acc->second : 0.0;
 }
 
 static void

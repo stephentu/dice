@@ -173,10 +173,15 @@ struct diceroll {
     return d;
   }
 
+  // XXX: hash is not encode(), since encode()
+  // relies on hash()
   inline uint64_t
   hash() const
   {
-    return std::hash<uint32_t>()(encode());
+    uint32_t h = 0;
+    for (unsigned i = 0; i < 6; i++)
+      h |= (counts_[i] << (3*i));
+    return std::hash<uint32_t>()(h);
   }
 
   inline bool
