@@ -285,9 +285,7 @@ statuspoller()
   while (keepgoing.load()) {
     sleep(10);
     const unsigned cur = work_queue.unsafe_size();
-    if (cur < last)
-      continue;
-    const double rate = double(cur - last) / t.lap_ms() * 1000.; // cmds/sec
+    const double rate = double(signed(last) - signed(cur)) / t.lap_ms() * 1000.; // cmds/sec
     cout << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
     last = cur;
   }
