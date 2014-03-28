@@ -288,6 +288,7 @@ statuspoller()
       continue;
     const double rate = double(cur - last) / t.lap_ms() * 1000.; // cmds/sec
     cout << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
+    last = cur;
   }
 }
 
