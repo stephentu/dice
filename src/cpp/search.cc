@@ -120,7 +120,7 @@ private:
 };
 
 static concurrent_queue< work > work_queue;
-static concurrent_hash_map<uint32_t, double> values;
+static vector< double > values;
 static vector< padded<double> > abs_max_changes;
 static vector< unique_ptr<ctrl> > controls;
 
@@ -144,19 +144,17 @@ static inline void
 update_value(unsigned tid, uint32_t encoding, double newvalue)
 {
   assert(tid < abs_max_changes.size());
-  concurrent_hash_map<uint32_t, double>::accessor acc;
-  const auto found = values.insert(acc, encoding);
-  const double oldvalue = found ? acc->second : 0.0;
+  assert(encoding < values.size());
+  const double oldvalue = values[encoding];
   *abs_max_changes[tid] = max(*abs_max_changes[tid], fabs(oldvalue - newvalue));
-  acc->second = newvalue;
+  values[encoding] = newvalue;
 }
 
 static inline double
 read_value(uint32_t encoding)
 {
-  concurrent_hash_map<uint32_t, double>::const_accessor acc;
-  const auto found = values.find(acc, encoding);
-  return found ? acc->second : 0.0;
+  assert(encoding < values.size());
+  return values[encoding];
 }
 
 static void
@@ -235,12 +233,12 @@ enqueue_with_scores(
       s.top_score_ = topscore;
       b.enqueue(move(s));
     } else {
-      for (auto &p : rollinfos) {
+      for (auto &p : reverserollinfos) {
         dicestate s;
         s.flags_ = flags;
         s.top_score_ = topscore;
         s.roll_number_ = turn;
-        s.roll_state_ = p.first;
+        s.roll_state_ = p;
         b.enqueue(move(s));
       }
     }
@@ -298,6 +296,9 @@ go(unsigned nworkers, double tol, const string &filename)
 {
   assert(nworkers > 0);
   assert(tol > 0.0);
+
+  // WARNING: eats up a lot of memory
+  values.resize( (1UL << dicestate::encode_bits) );
 
   abs_max_changes.resize( nworkers );
   for (unsigned i = 0; i < nworkers; i++)
@@ -370,13 +371,6 @@ num_cpus_online()
 int
 main(int argc, char **argv)
 {
-  //cout << "nbits_flags: " << dicestate::nbits_flags << endl;
-  //cout << "nbits_max_top_score: " << dicestate::nbits_max_top_score << endl;
-  //cout << "nbits_max_roll_number: " << dicestate::nbits_max_roll_number << endl;
-  //cout << "nbits_roll_state: " << dicestate::nbits_roll_state << endl;
-  //cout << "nbits: " << dicestate::encode_bits << endl;
-  //cout << "len: " << (1UL << dicestate::encode_bits) << endl;
-
   go(num_cpus_online() * 2, 1e-1, "");
   return 0;
 }

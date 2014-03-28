@@ -24,7 +24,7 @@ test_encode_decode()
           (dicestate::nbits_flags)) |
        (s.roll_number_ <<
           (dicestate::nbits_flags + dicestate::nbits_max_top_score)) |
-       (s.roll_state_.encode() <<
+       (s.roll_state_.encode_tiny() <<
           (dicestate::nbits_flags + dicestate::nbits_max_top_score +
            dicestate::nbits_max_roll_number))));
 }

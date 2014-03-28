@@ -3,7 +3,14 @@
 
 namespace dice {
 
-diceroll::diceroll(uint32_t encoding)
+diceroll::diceroll(encode_type_small_t, uint32_t encoding)
+{
+  assert(encoding < (6*6*6*6*6*6));
+  for (unsigned i = 0; i < 6; i++, encoding /= 6)
+    counts_[i] = encoding % 6;
+}
+
+diceroll::diceroll(encode_type_tiny_t, uint32_t encoding)
 {
   assert(encoding <= reverserollinfos.size());
   if (encoding == reverserollinfos.size())
@@ -13,7 +20,17 @@ diceroll::diceroll(uint32_t encoding)
 }
 
 uint32_t
-diceroll::encode() const
+diceroll::encode_small() const
+{
+  uint32_t encoding = 0;
+  uint32_t mult = 1;
+  for (unsigned i = 0; i < 6; i++, mult *= 6)
+    encoding += counts_[i] * mult;
+  return encoding;
+}
+
+uint32_t
+diceroll::encode_tiny() const
 {
   if (empty())
     return rollinfos.size();
@@ -27,7 +44,8 @@ dicestate::dicestate(uint32_t encoding)
   top_score_ = (encoding >> nbits_flags) & ((1<<nbits_max_top_score)-1);
   roll_number_ = (encoding >> (nbits_flags + nbits_max_top_score)) &
     ((1<<nbits_max_roll_number)-1);
-  roll_state_ = diceroll(encoding >> (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
+  roll_state_ = diceroll(diceroll::encode_type_tiny,
+      encoding >> (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
 }
 
 uint32_t
@@ -44,7 +62,8 @@ dicestate::encode() const
   assert( !(roll_number_ & ~((1<<nbits_max_roll_number)-1)) );
   value |= (roll_number_ << (nbits_flags + nbits_max_top_score));
 
-  value |= (roll_state_.encode() << (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
+  value |= (roll_state_.encode_tiny() <<
+      (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
   return value;
 }
 

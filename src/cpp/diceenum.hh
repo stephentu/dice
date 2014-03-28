@@ -2,9 +2,10 @@
 #pragma once
 #include "dice.hh"
 #include "log2.hh"
-#include <unordered_map>
-#include <vector>
 #include <cassert>
+#include <vector>
+#include <utility>
+#include <memory>
 namespace dice {
 struct rollinfo {
   unsigned id_;
@@ -12,37 +13,35 @@ struct rollinfo {
   std::vector< unsigned > scores_;
   rollinfo() : id_(), partials_(), scores_() {}
   rollinfo(unsigned id, const std::vector< std::vector< diceroll > > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}
+  rollinfo(unsigned id, std::vector< std::vector< diceroll > > &&partials, std::vector< unsigned > &&scores) : id_(id), partials_(std::move(partials)), scores_(std::move(scores)) {}
 };
-std::unordered_map<diceroll, rollinfo> MakeRollInfos();
-const std::unordered_map<diceroll, rollinfo> rollinfos = MakeRollInfos();
+std::vector< std::unique_ptr<rollinfo> > MakeRollInfos();
+const std::vector< std::unique_ptr<rollinfo> > rollinfos = MakeRollInfos();
 std::vector< diceroll > MakeReverseRollInfos();
 const std::vector< diceroll > reverserollinfos = MakeReverseRollInfos();
-std::vector< std::unordered_map<diceroll, double> > MakeRollDists();
-const std::vector< std::unordered_map<diceroll, double> > rolldists = MakeRollDists();
+std::vector< std::vector< std::pair<diceroll, double> > > MakeRollDists();
+const std::vector< std::vector< std::pair<diceroll, double> > > rolldists = MakeRollDists();
 std::vector< std::vector< unsigned > > MakePossibleTopScores();
 const std::vector< std::vector< unsigned > > possibletopscores = MakePossibleTopScores();
 inline unsigned int
 diceid(const diceroll &d)
 {
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.id_;
+  const auto idx = d.encode_small();
+  assert(idx < rollinfos.size() && rollinfos[idx]);
+  return rollinfos[idx]->id_;
 }
 inline const std::vector< std::vector< diceroll > > &
 dicepartials(const diceroll &d)
 {
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.partials_;
+  const auto idx = d.encode_small();
+  assert(idx < rollinfos.size() && rollinfos[idx]);
+  return rollinfos[idx]->partials_;
 }
 inline const std::vector< unsigned > &
 dicescores(const diceroll &d)
 {
-  d.assert_proper();
-  const auto it = rollinfos.find(d);
-  assert(it != rollinfos.end());
-  return it->second.scores_;
+  const auto idx = d.encode_small();
+  assert(idx < rollinfos.size() && rollinfos[idx]);
+  return rollinfos[idx]->scores_;
 }
 } // namespace dice

@@ -60,11 +60,17 @@ struct diceroll {
     reset();
   }
 
-  enum class type { BUCKETS, VALUES };
+  struct encode_type_small_t {};
+  struct encode_type_tiny_t {};
+
+  static const encode_type_small_t encode_type_small;
+  static const encode_type_tiny_t encode_type_tiny;
 
   // decode
-  diceroll(uint32_t encoding);
+  diceroll(encode_type_small_t, uint32_t encoding);
+  diceroll(encode_type_tiny_t, uint32_t encoding);
 
+  // initialize each bucket
   diceroll(unsigned c0,
            unsigned c1,
            unsigned c2,
@@ -104,9 +110,10 @@ struct diceroll {
     return s;
   }
 
-  // XXX: only **proper** rolls + the empty roll can be encoded!
-  // (no other partial rolls can be encoded)
-  uint32_t encode() const;
+  // XXX: only **proper** rolls + the empty roll can be encoded (in either
+  // small or tiny)!  that is, no other partial rolls can be encoded
+  uint32_t encode_small() const;
+  uint32_t encode_tiny() const;
 
   template <typename PRNG>
   inline void
@@ -121,7 +128,6 @@ struct diceroll {
   inline void
   reset()
   {
-    //memset(&counts_, 0, sizeof(uint8_t) * 6);
     for (unsigned i = 0; i < 6; i++)
       counts_[i] = 0;
   }
@@ -139,7 +145,6 @@ struct diceroll {
   inline bool
   operator==(const diceroll &that) const
   {
-    //return memcmp(&counts_[0], &that.counts_[0], sizeof(uint8_t) * 6);
     return counts_[0] == that.counts_[0] &&
            counts_[1] == that.counts_[1] &&
            counts_[2] == that.counts_[2] &&

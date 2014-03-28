@@ -109,57 +109,66 @@ if __name__ == '__main__':
         print >>fp, r'#pragma once'
         print >>fp, r'#include "dice.hh"'
         print >>fp, r'#include "log2.hh"'
-        print >>fp, r'#include <unordered_map>'
-        print >>fp, r'#include <vector>'
         print >>fp, r'#include <cassert>'
+        print >>fp, r'#include <vector>'
+        print >>fp, r'#include <utility>'
+        print >>fp, r'#include <memory>'
         print >>fp, r'namespace dice {'
         print >>fp, r'struct rollinfo {'
         print >>fp, r'  unsigned id_;'
         print >>fp, r'  std::vector< std::vector< diceroll > > partials_;'
         print >>fp, r'  std::vector< unsigned > scores_;'
         print >>fp, r'  rollinfo() : id_(), partials_(), scores_() {}'
-        print >>fp, r'  rollinfo(unsigned id, const std::vector< std::vector< diceroll > > &partials, const std::vector< unsigned > &scores) : id_(id), partials_(partials), scores_(scores) {}'
+        print >>fp, r'  rollinfo(unsigned id, const std::vector< std::vector< diceroll > > &partials, const std::vector< unsigned > &scores) ' \
+                        r': id_(id), partials_(partials), scores_(scores) {}'
+        print >>fp, r'  rollinfo(unsigned id, std::vector< std::vector< diceroll > > &&partials, std::vector< unsigned > &&scores) ' \
+                        r': id_(id), partials_(std::move(partials)), scores_(std::move(scores)) {}'
         print >>fp, r'};'
-        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos();'
-        print >>fp, r'const std::unordered_map<diceroll, rollinfo> rollinfos = MakeRollInfos();'
+        print >>fp, r'std::vector< std::unique_ptr<rollinfo> > MakeRollInfos();'
+        print >>fp, r'const std::vector< std::unique_ptr<rollinfo> > rollinfos = MakeRollInfos();'
         print >>fp, r'std::vector< diceroll > MakeReverseRollInfos();'
         print >>fp, r'const std::vector< diceroll > reverserollinfos = MakeReverseRollInfos();'
-        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists();'
-        print >>fp, r'const std::vector< std::unordered_map<diceroll, double> > rolldists = MakeRollDists();'
+        print >>fp, r'std::vector< std::vector< std::pair<diceroll, double> > > MakeRollDists();'
+        print >>fp, r'const std::vector< std::vector< std::pair<diceroll, double> > > rolldists = MakeRollDists();'
         print >>fp, r'std::vector< std::vector< unsigned > > MakePossibleTopScores();'
         print >>fp, r'const std::vector< std::vector< unsigned > > possibletopscores = MakePossibleTopScores();'
         print >>fp, r'inline unsigned int'
         print >>fp, r'diceid(const diceroll &d)'
         print >>fp, r'{'
-        print >>fp, r'  d.assert_proper();'
-        print >>fp, r'  const auto it = rollinfos.find(d);'
-        print >>fp, r'  assert(it != rollinfos.end());'
-        print >>fp, r'  return it->second.id_;'
+        print >>fp, r'  const auto idx = d.encode_small();'
+        print >>fp, r'  assert(idx < rollinfos.size() && rollinfos[idx]);'
+        print >>fp, r'  return rollinfos[idx]->id_;'
         print >>fp, r'}'
         print >>fp, r'inline const std::vector< std::vector< diceroll > > &'
         print >>fp, r'dicepartials(const diceroll &d)'
         print >>fp, r'{'
-        print >>fp, r'  d.assert_proper();'
-        print >>fp, r'  const auto it = rollinfos.find(d);'
-        print >>fp, r'  assert(it != rollinfos.end());'
-        print >>fp, r'  return it->second.partials_;'
+        print >>fp, r'  const auto idx = d.encode_small();'
+        print >>fp, r'  assert(idx < rollinfos.size() && rollinfos[idx]);'
+        print >>fp, r'  return rollinfos[idx]->partials_;'
         print >>fp, r'}'
         print >>fp, r'inline const std::vector< unsigned > &'
         print >>fp, r'dicescores(const diceroll &d)'
         print >>fp, r'{'
-        print >>fp, r'  d.assert_proper();'
-        print >>fp, r'  const auto it = rollinfos.find(d);'
-        print >>fp, r'  assert(it != rollinfos.end());'
-        print >>fp, r'  return it->second.scores_;'
+        print >>fp, r'  const auto idx = d.encode_small();'
+        print >>fp, r'  assert(idx < rollinfos.size() && rollinfos[idx]);'
+        print >>fp, r'  return rollinfos[idx]->scores_;'
         print >>fp, r'}'
         print >>fp, r'} // namespace dice'
+
+    def encode_small(roll):
+        encoding = 0
+        mult = 1
+        for i in xrange(6):
+            encoding += roll[i] * mult
+            mult *= 6
+        return encoding
 
     with open(prefix + '.1.cc', 'w') as fp:
         print >>fp, r'// WARNING: auto-generated file'
         print >>fp, r'#include "%s"' % (os.path.basename(prefix+'.hh'))
         print >>fp, r'namespace dice {'
-        print >>fp, r'std::unordered_map<diceroll, rollinfo> MakeRollInfos() {'
-        print >>fp, r'  std::unordered_map<diceroll, rollinfo> ret;'
+        print >>fp, r'std::vector< std::unique_ptr<rollinfo> > MakeRollInfos() {'
+        print >>fp, r'  std::vector< std::unique_ptr<rollinfo> > ret(%d);' % (6**6)
         i = 0
         for x in it.product(range(0, 6), repeat=6):
             if sum(x) == 5:
@@ -182,8 +191,8 @@ if __name__ == '__main__':
                         print >>fp, r'      p.emplace_back(' + ', '.join(map(str, canon(y))) + ');'
                     print >>fp, r'      partials.emplace_back(p);'
                     print >>fp, r'    }'
-                rollinfo = r'rollinfo(' + str(i) + ', partials, ' + wrapvec(tocpp(scores), 'unsigned') + ')'
-                print >>fp, r'    ret[diceroll(' + ', '.join(map(str, x)) + ')] = ' + rollinfo + ';'
+                rollinfo = r'rollinfo(' + str(i) + ', std::move(partials), ' + wrapvec(tocpp(scores), 'unsigned') + ')'
+                print >>fp, r'    ret[' + str(encode_small(x)) + '].reset(new ' + rollinfo + ');'
                 print >>fp, r'  }'
                 i += 1
         print >>fp, r'  return ret;'
@@ -206,19 +215,19 @@ if __name__ == '__main__':
         # now we pre-compute all possible ways to roll k dice with the associated
         # probability distributions
 
-        print >>fp, r'std::vector< std::unordered_map<diceroll, double> > MakeRollDists() {'
-        print >>fp, r'  std::vector< std::unordered_map<diceroll, double> > ret;'
+        print >>fp, r'std::vector< std::vector< std::pair<diceroll, double> > > MakeRollDists() {'
+        print >>fp, r'  std::vector< std::vector< std::pair<diceroll, double> > > ret;'
 
         for k in xrange(1, 6):
             print >>fp, r'  {'
-            print >>fp, r'    std::unordered_map<diceroll, double> m;'
+            print >>fp, r'    std::vector< std::pair<diceroll, double> > m;'
             seen = dict()
             for x in it.product(range(1, 7), repeat=k):
                 m = canon(x)
                 seen[m] = seen.get(m, 0) + 1
             total = float(6 ** k)
             for key, value in seen.iteritems():
-                print >>fp, r'    m[diceroll(' + ', '.join(map(str, key)) + ')] = ' + str(float(value)/total) + ';'
+                print >>fp, r'    m.emplace_back(diceroll(' + ', '.join(map(str, key)) + '), ' + str(float(value)/total) + ');'
             print >>fp, r'    ret.emplace_back(m);'
             print >>fp, r'  }'
 

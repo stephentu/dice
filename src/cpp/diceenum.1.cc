@@ -1,8 +1,8 @@
 // WARNING: auto-generated file
 #include "diceenum.hh"
 namespace dice {
-std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
-  std::unordered_map<diceroll, rollinfo> ret;
+std::vector< std::unique_ptr<rollinfo> > MakeRollInfos() {
+  std::vector< std::unique_ptr<rollinfo> > ret(46656);
   {
     std::vector< std::vector< diceroll > > partials;
     {
@@ -29,7 +29,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 0, 5)] = rollinfo(0, partials, std::vector<unsigned>({0,0,0,0,0,30,30,30,0,0,0,50,30}));
+    ret[38880].reset(new rollinfo(0, std::move(partials), std::vector<unsigned>({0,0,0,0,0,30,30,30,0,0,0,50,30})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -61,7 +61,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 1, 4)] = rollinfo(1, partials, std::vector<unsigned>({0,0,0,0,5,24,29,29,0,0,0,0,29}));
+    ret[32400].reset(new rollinfo(1, std::move(partials), std::vector<unsigned>({0,0,0,0,5,24,29,29,0,0,0,0,29})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -95,7 +95,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 1, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 2, 3)] = rollinfo(2, partials, std::vector<unsigned>({0,0,0,0,10,18,28,0,25,0,0,0,28}));
+    ret[25920].reset(new rollinfo(2, std::move(partials), std::vector<unsigned>({0,0,0,0,10,18,28,0,25,0,0,0,28})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -129,7 +129,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 3, 2)] = rollinfo(3, partials, std::vector<unsigned>({0,0,0,0,15,12,27,0,25,0,0,0,27}));
+    ret[19440].reset(new rollinfo(3, std::move(partials), std::vector<unsigned>({0,0,0,0,15,12,27,0,25,0,0,0,27})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -161,7 +161,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 4, 1)] = rollinfo(4, partials, std::vector<unsigned>({0,0,0,0,20,6,26,26,0,0,0,0,26}));
+    ret[12960].reset(new rollinfo(4, std::move(partials), std::vector<unsigned>({0,0,0,0,20,6,26,26,0,0,0,0,26})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -189,7 +189,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 4, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 0, 5, 0)] = rollinfo(5, partials, std::vector<unsigned>({0,0,0,0,25,0,25,25,0,0,0,50,25}));
+    ret[6480].reset(new rollinfo(5, std::move(partials), std::vector<unsigned>({0,0,0,0,25,0,25,25,0,0,0,50,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -221,7 +221,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 1, 0, 4)] = rollinfo(6, partials, std::vector<unsigned>({0,0,0,4,0,24,28,28,0,0,0,0,28}));
+    ret[31320].reset(new rollinfo(6, std::move(partials), std::vector<unsigned>({0,0,0,4,0,24,28,28,0,0,0,0,28})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -259,7 +259,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 1, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 1, 1, 3)] = rollinfo(7, partials, std::vector<unsigned>({0,0,0,4,5,18,27,0,0,0,0,0,27}));
+    ret[24840].reset(new rollinfo(7, std::move(partials), std::vector<unsigned>({0,0,0,4,5,18,27,0,0,0,0,0,27})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -299,7 +299,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 2, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 1, 2, 2)] = rollinfo(8, partials, std::vector<unsigned>({0,0,0,4,10,12,0,0,0,0,0,0,26}));
+    ret[18360].reset(new rollinfo(8, std::move(partials), std::vector<unsigned>({0,0,0,4,10,12,0,0,0,0,0,0,26})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -337,7 +337,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 1, 3, 1)] = rollinfo(9, partials, std::vector<unsigned>({0,0,0,4,15,6,25,0,0,0,0,0,25}));
+    ret[11880].reset(new rollinfo(9, std::move(partials), std::vector<unsigned>({0,0,0,4,15,6,25,0,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -369,7 +369,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 4, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 1, 4, 0)] = rollinfo(10, partials, std::vector<unsigned>({0,0,0,4,20,0,24,24,0,0,0,0,24}));
+    ret[5400].reset(new rollinfo(10, std::move(partials), std::vector<unsigned>({0,0,0,4,20,0,24,24,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -403,7 +403,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 2, 0, 3)] = rollinfo(11, partials, std::vector<unsigned>({0,0,0,8,0,18,26,0,25,0,0,0,26}));
+    ret[23760].reset(new rollinfo(11, std::move(partials), std::vector<unsigned>({0,0,0,8,0,18,26,0,25,0,0,0,26})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -443,7 +443,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 1, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 2, 1, 2)] = rollinfo(12, partials, std::vector<unsigned>({0,0,0,8,5,12,0,0,0,0,0,0,25}));
+    ret[17280].reset(new rollinfo(12, std::move(partials), std::vector<unsigned>({0,0,0,8,5,12,0,0,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -483,7 +483,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 2, 2, 1)] = rollinfo(13, partials, std::vector<unsigned>({0,0,0,8,10,6,0,0,0,0,0,0,24}));
+    ret[10800].reset(new rollinfo(13, std::move(partials), std::vector<unsigned>({0,0,0,8,10,6,0,0,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -517,7 +517,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 2, 3, 0)] = rollinfo(14, partials, std::vector<unsigned>({0,0,0,8,15,0,23,0,25,0,0,0,23}));
+    ret[4320].reset(new rollinfo(14, std::move(partials), std::vector<unsigned>({0,0,0,8,15,0,23,0,25,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -551,7 +551,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 3, 0, 2)] = rollinfo(15, partials, std::vector<unsigned>({0,0,0,12,0,12,24,0,25,0,0,0,24}));
+    ret[16200].reset(new rollinfo(15, std::move(partials), std::vector<unsigned>({0,0,0,12,0,12,24,0,25,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -589,7 +589,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 3, 1, 1)] = rollinfo(16, partials, std::vector<unsigned>({0,0,0,12,5,6,23,0,0,0,0,0,23}));
+    ret[9720].reset(new rollinfo(16, std::move(partials), std::vector<unsigned>({0,0,0,12,5,6,23,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -623,7 +623,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 3, 2, 0)] = rollinfo(17, partials, std::vector<unsigned>({0,0,0,12,10,0,22,0,25,0,0,0,22}));
+    ret[3240].reset(new rollinfo(17, std::move(partials), std::vector<unsigned>({0,0,0,12,10,0,22,0,25,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -655,7 +655,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 4, 0, 1)] = rollinfo(18, partials, std::vector<unsigned>({0,0,0,16,0,6,22,22,0,0,0,0,22}));
+    ret[8640].reset(new rollinfo(18, std::move(partials), std::vector<unsigned>({0,0,0,16,0,6,22,22,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -687,7 +687,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 4, 1, 0)] = rollinfo(19, partials, std::vector<unsigned>({0,0,0,16,5,0,21,21,0,0,0,0,21}));
+    ret[2160].reset(new rollinfo(19, std::move(partials), std::vector<unsigned>({0,0,0,16,5,0,21,21,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -715,7 +715,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 0, 5, 0, 0)] = rollinfo(20, partials, std::vector<unsigned>({0,0,0,20,0,0,20,20,0,0,0,50,20}));
+    ret[1080].reset(new rollinfo(20, std::move(partials), std::vector<unsigned>({0,0,0,20,0,0,20,20,0,0,0,50,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -747,7 +747,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 0, 0, 4)] = rollinfo(21, partials, std::vector<unsigned>({0,0,3,0,0,24,27,27,0,0,0,0,27}));
+    ret[31140].reset(new rollinfo(21, std::move(partials), std::vector<unsigned>({0,0,3,0,0,24,27,27,0,0,0,0,27})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -785,7 +785,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 0, 1, 3)] = rollinfo(22, partials, std::vector<unsigned>({0,0,3,0,5,18,26,0,0,0,0,0,26}));
+    ret[24660].reset(new rollinfo(22, std::move(partials), std::vector<unsigned>({0,0,3,0,5,18,26,0,0,0,0,0,26})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -825,7 +825,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 0, 2, 2)] = rollinfo(23, partials, std::vector<unsigned>({0,0,3,0,10,12,0,0,0,0,0,0,25}));
+    ret[18180].reset(new rollinfo(23, std::move(partials), std::vector<unsigned>({0,0,3,0,10,12,0,0,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -863,7 +863,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 0, 3, 1)] = rollinfo(24, partials, std::vector<unsigned>({0,0,3,0,15,6,24,0,0,0,0,0,24}));
+    ret[11700].reset(new rollinfo(24, std::move(partials), std::vector<unsigned>({0,0,3,0,15,6,24,0,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -895,7 +895,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 4, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 0, 4, 0)] = rollinfo(25, partials, std::vector<unsigned>({0,0,3,0,20,0,23,23,0,0,0,0,23}));
+    ret[5220].reset(new rollinfo(25, std::move(partials), std::vector<unsigned>({0,0,3,0,20,0,23,23,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -933,7 +933,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 1, 0, 3)] = rollinfo(26, partials, std::vector<unsigned>({0,0,3,4,0,18,25,0,0,0,0,0,25}));
+    ret[23580].reset(new rollinfo(26, std::move(partials), std::vector<unsigned>({0,0,3,4,0,18,25,0,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -979,7 +979,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 1, 1, 2)] = rollinfo(27, partials, std::vector<unsigned>({0,0,3,4,5,12,0,0,0,40,0,0,24}));
+    ret[17100].reset(new rollinfo(27, std::move(partials), std::vector<unsigned>({0,0,3,4,5,12,0,0,0,40,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1025,7 +1025,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 1, 2, 1)] = rollinfo(28, partials, std::vector<unsigned>({0,0,3,4,10,6,0,0,0,40,0,0,23}));
+    ret[10620].reset(new rollinfo(28, std::move(partials), std::vector<unsigned>({0,0,3,4,10,6,0,0,0,40,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1063,7 +1063,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 1, 3, 0)] = rollinfo(29, partials, std::vector<unsigned>({0,0,3,4,15,0,22,0,0,0,0,0,22}));
+    ret[4140].reset(new rollinfo(29, std::move(partials), std::vector<unsigned>({0,0,3,4,15,0,22,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1103,7 +1103,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 2, 0, 2)] = rollinfo(30, partials, std::vector<unsigned>({0,0,3,8,0,12,0,0,0,0,0,0,23}));
+    ret[16020].reset(new rollinfo(30, std::move(partials), std::vector<unsigned>({0,0,3,8,0,12,0,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1149,7 +1149,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 2, 1, 1)] = rollinfo(31, partials, std::vector<unsigned>({0,0,3,8,5,6,0,0,0,40,0,0,22}));
+    ret[9540].reset(new rollinfo(31, std::move(partials), std::vector<unsigned>({0,0,3,8,5,6,0,0,0,40,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1189,7 +1189,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 2, 2, 0)] = rollinfo(32, partials, std::vector<unsigned>({0,0,3,8,10,0,0,0,0,0,0,0,21}));
+    ret[3060].reset(new rollinfo(32, std::move(partials), std::vector<unsigned>({0,0,3,8,10,0,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1227,7 +1227,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 3, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 3, 0, 1)] = rollinfo(33, partials, std::vector<unsigned>({0,0,3,12,0,6,21,0,0,0,0,0,21}));
+    ret[8460].reset(new rollinfo(33, std::move(partials), std::vector<unsigned>({0,0,3,12,0,6,21,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1265,7 +1265,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 3, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 3, 1, 0)] = rollinfo(34, partials, std::vector<unsigned>({0,0,3,12,5,0,20,0,0,0,0,0,20}));
+    ret[1980].reset(new rollinfo(34, std::move(partials), std::vector<unsigned>({0,0,3,12,5,0,20,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1297,7 +1297,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 1, 4, 0, 0)] = rollinfo(35, partials, std::vector<unsigned>({0,0,3,16,0,0,19,19,0,0,0,0,19}));
+    ret[900].reset(new rollinfo(35, std::move(partials), std::vector<unsigned>({0,0,3,16,0,0,19,19,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1331,7 +1331,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 0, 0, 3)] = rollinfo(36, partials, std::vector<unsigned>({0,0,6,0,0,18,24,0,25,0,0,0,24}));
+    ret[23400].reset(new rollinfo(36, std::move(partials), std::vector<unsigned>({0,0,6,0,0,18,24,0,25,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1371,7 +1371,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 0, 1, 2)] = rollinfo(37, partials, std::vector<unsigned>({0,0,6,0,5,12,0,0,0,0,0,0,23}));
+    ret[16920].reset(new rollinfo(37, std::move(partials), std::vector<unsigned>({0,0,6,0,5,12,0,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1411,7 +1411,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 0, 2, 1)] = rollinfo(38, partials, std::vector<unsigned>({0,0,6,0,10,6,0,0,0,0,0,0,22}));
+    ret[10440].reset(new rollinfo(38, std::move(partials), std::vector<unsigned>({0,0,6,0,10,6,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1445,7 +1445,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 0, 3, 0)] = rollinfo(39, partials, std::vector<unsigned>({0,0,6,0,15,0,21,0,25,0,0,0,21}));
+    ret[3960].reset(new rollinfo(39, std::move(partials), std::vector<unsigned>({0,0,6,0,15,0,21,0,25,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1485,7 +1485,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 1, 0, 2)] = rollinfo(40, partials, std::vector<unsigned>({0,0,6,4,0,12,0,0,0,0,0,0,22}));
+    ret[15840].reset(new rollinfo(40, std::move(partials), std::vector<unsigned>({0,0,6,4,0,12,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1531,7 +1531,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 1, 1, 1)] = rollinfo(41, partials, std::vector<unsigned>({0,0,6,4,5,6,0,0,0,40,0,0,21}));
+    ret[9360].reset(new rollinfo(41, std::move(partials), std::vector<unsigned>({0,0,6,4,5,6,0,0,0,40,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1571,7 +1571,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 1, 2, 0)] = rollinfo(42, partials, std::vector<unsigned>({0,0,6,4,10,0,0,0,0,0,0,0,20}));
+    ret[2880].reset(new rollinfo(42, std::move(partials), std::vector<unsigned>({0,0,6,4,10,0,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1611,7 +1611,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 2, 0, 1)] = rollinfo(43, partials, std::vector<unsigned>({0,0,6,8,0,6,0,0,0,0,0,0,20}));
+    ret[8280].reset(new rollinfo(43, std::move(partials), std::vector<unsigned>({0,0,6,8,0,6,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1651,7 +1651,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 2, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 2, 1, 0)] = rollinfo(44, partials, std::vector<unsigned>({0,0,6,8,5,0,0,0,0,0,0,0,19}));
+    ret[1800].reset(new rollinfo(44, std::move(partials), std::vector<unsigned>({0,0,6,8,5,0,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1685,7 +1685,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 3, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 2, 3, 0, 0)] = rollinfo(45, partials, std::vector<unsigned>({0,0,6,12,0,0,18,0,25,0,0,0,18}));
+    ret[720].reset(new rollinfo(45, std::move(partials), std::vector<unsigned>({0,0,6,12,0,0,18,0,25,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1719,7 +1719,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 0, 0, 2)] = rollinfo(46, partials, std::vector<unsigned>({0,0,9,0,0,12,21,0,25,0,0,0,21}));
+    ret[15660].reset(new rollinfo(46, std::move(partials), std::vector<unsigned>({0,0,9,0,0,12,21,0,25,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1757,7 +1757,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 0, 1, 1)] = rollinfo(47, partials, std::vector<unsigned>({0,0,9,0,5,6,20,0,0,0,0,0,20}));
+    ret[9180].reset(new rollinfo(47, std::move(partials), std::vector<unsigned>({0,0,9,0,5,6,20,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1791,7 +1791,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 0, 2, 0)] = rollinfo(48, partials, std::vector<unsigned>({0,0,9,0,10,0,19,0,25,0,0,0,19}));
+    ret[2700].reset(new rollinfo(48, std::move(partials), std::vector<unsigned>({0,0,9,0,10,0,19,0,25,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1829,7 +1829,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 1, 0, 1)] = rollinfo(49, partials, std::vector<unsigned>({0,0,9,4,0,6,19,0,0,0,0,0,19}));
+    ret[8100].reset(new rollinfo(49, std::move(partials), std::vector<unsigned>({0,0,9,4,0,6,19,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1867,7 +1867,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 3, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 1, 1, 0)] = rollinfo(50, partials, std::vector<unsigned>({0,0,9,4,5,0,18,0,0,0,0,0,18}));
+    ret[1620].reset(new rollinfo(50, std::move(partials), std::vector<unsigned>({0,0,9,4,5,0,18,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1901,7 +1901,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 3, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 3, 2, 0, 0)] = rollinfo(51, partials, std::vector<unsigned>({0,0,9,8,0,0,17,0,25,0,0,0,17}));
+    ret[540].reset(new rollinfo(51, std::move(partials), std::vector<unsigned>({0,0,9,8,0,0,17,0,25,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1933,7 +1933,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 4, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 4, 0, 0, 1)] = rollinfo(52, partials, std::vector<unsigned>({0,0,12,0,0,6,18,18,0,0,0,0,18}));
+    ret[7920].reset(new rollinfo(52, std::move(partials), std::vector<unsigned>({0,0,12,0,0,6,18,18,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1965,7 +1965,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 4, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 4, 0, 1, 0)] = rollinfo(53, partials, std::vector<unsigned>({0,0,12,0,5,0,17,17,0,0,0,0,17}));
+    ret[1440].reset(new rollinfo(53, std::move(partials), std::vector<unsigned>({0,0,12,0,5,0,17,17,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -1997,7 +1997,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 4, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 4, 1, 0, 0)] = rollinfo(54, partials, std::vector<unsigned>({0,0,12,4,0,0,16,16,0,0,0,0,16}));
+    ret[360].reset(new rollinfo(54, std::move(partials), std::vector<unsigned>({0,0,12,4,0,0,16,16,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2025,7 +2025,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 4, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 0, 5, 0, 0, 0)] = rollinfo(55, partials, std::vector<unsigned>({0,0,15,0,0,0,15,15,0,0,0,50,15}));
+    ret[180].reset(new rollinfo(55, std::move(partials), std::vector<unsigned>({0,0,15,0,0,0,15,15,0,0,0,50,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2057,7 +2057,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 0, 0, 4)] = rollinfo(56, partials, std::vector<unsigned>({0,2,0,0,0,24,26,26,0,0,0,0,26}));
+    ret[31110].reset(new rollinfo(56, std::move(partials), std::vector<unsigned>({0,2,0,0,0,24,26,26,0,0,0,0,26})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2095,7 +2095,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 1, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 0, 1, 3)] = rollinfo(57, partials, std::vector<unsigned>({0,2,0,0,5,18,25,0,0,0,0,0,25}));
+    ret[24630].reset(new rollinfo(57, std::move(partials), std::vector<unsigned>({0,2,0,0,5,18,25,0,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2135,7 +2135,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 0, 2, 2)] = rollinfo(58, partials, std::vector<unsigned>({0,2,0,0,10,12,0,0,0,0,0,0,24}));
+    ret[18150].reset(new rollinfo(58, std::move(partials), std::vector<unsigned>({0,2,0,0,10,12,0,0,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2173,7 +2173,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 0, 3, 1)] = rollinfo(59, partials, std::vector<unsigned>({0,2,0,0,15,6,23,0,0,0,0,0,23}));
+    ret[11670].reset(new rollinfo(59, std::move(partials), std::vector<unsigned>({0,2,0,0,15,6,23,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2205,7 +2205,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 4, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 0, 4, 0)] = rollinfo(60, partials, std::vector<unsigned>({0,2,0,0,20,0,22,22,0,0,0,0,22}));
+    ret[5190].reset(new rollinfo(60, std::move(partials), std::vector<unsigned>({0,2,0,0,20,0,22,22,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2243,7 +2243,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 1, 0, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 1, 0, 3)] = rollinfo(61, partials, std::vector<unsigned>({0,2,0,4,0,18,24,0,0,0,0,0,24}));
+    ret[23550].reset(new rollinfo(61, std::move(partials), std::vector<unsigned>({0,2,0,4,0,18,24,0,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2289,7 +2289,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 1, 1, 2)] = rollinfo(62, partials, std::vector<unsigned>({0,2,0,4,5,12,0,0,0,0,0,0,23}));
+    ret[17070].reset(new rollinfo(62, std::move(partials), std::vector<unsigned>({0,2,0,4,5,12,0,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2335,7 +2335,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 1, 2, 1)] = rollinfo(63, partials, std::vector<unsigned>({0,2,0,4,10,6,0,0,0,0,0,0,22}));
+    ret[10590].reset(new rollinfo(63, std::move(partials), std::vector<unsigned>({0,2,0,4,10,6,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2373,7 +2373,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 1, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 1, 3, 0)] = rollinfo(64, partials, std::vector<unsigned>({0,2,0,4,15,0,21,0,0,0,0,0,21}));
+    ret[4110].reset(new rollinfo(64, std::move(partials), std::vector<unsigned>({0,2,0,4,15,0,21,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2413,7 +2413,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 2, 0, 2)] = rollinfo(65, partials, std::vector<unsigned>({0,2,0,8,0,12,0,0,0,0,0,0,22}));
+    ret[15990].reset(new rollinfo(65, std::move(partials), std::vector<unsigned>({0,2,0,8,0,12,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2459,7 +2459,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 2, 1, 1)] = rollinfo(66, partials, std::vector<unsigned>({0,2,0,8,5,6,0,0,0,0,0,0,21}));
+    ret[9510].reset(new rollinfo(66, std::move(partials), std::vector<unsigned>({0,2,0,8,5,6,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2499,7 +2499,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 2, 2, 0)] = rollinfo(67, partials, std::vector<unsigned>({0,2,0,8,10,0,0,0,0,0,0,0,20}));
+    ret[3030].reset(new rollinfo(67, std::move(partials), std::vector<unsigned>({0,2,0,8,10,0,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2537,7 +2537,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 3, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 3, 0, 1)] = rollinfo(68, partials, std::vector<unsigned>({0,2,0,12,0,6,20,0,0,0,0,0,20}));
+    ret[8430].reset(new rollinfo(68, std::move(partials), std::vector<unsigned>({0,2,0,12,0,6,20,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2575,7 +2575,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 3, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 3, 1, 0)] = rollinfo(69, partials, std::vector<unsigned>({0,2,0,12,5,0,19,0,0,0,0,0,19}));
+    ret[1950].reset(new rollinfo(69, std::move(partials), std::vector<unsigned>({0,2,0,12,5,0,19,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2607,7 +2607,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 0, 4, 0, 0)] = rollinfo(70, partials, std::vector<unsigned>({0,2,0,16,0,0,18,18,0,0,0,0,18}));
+    ret[870].reset(new rollinfo(70, std::move(partials), std::vector<unsigned>({0,2,0,16,0,0,18,18,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2645,7 +2645,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 0, 0, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 0, 0, 3)] = rollinfo(71, partials, std::vector<unsigned>({0,2,3,0,0,18,23,0,0,0,0,0,23}));
+    ret[23370].reset(new rollinfo(71, std::move(partials), std::vector<unsigned>({0,2,3,0,0,18,23,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2691,7 +2691,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 0, 1, 2)] = rollinfo(72, partials, std::vector<unsigned>({0,2,3,0,5,12,0,0,0,0,0,0,22}));
+    ret[16890].reset(new rollinfo(72, std::move(partials), std::vector<unsigned>({0,2,3,0,5,12,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2737,7 +2737,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 0, 2, 1)] = rollinfo(73, partials, std::vector<unsigned>({0,2,3,0,10,6,0,0,0,0,0,0,21}));
+    ret[10410].reset(new rollinfo(73, std::move(partials), std::vector<unsigned>({0,2,3,0,10,6,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2775,7 +2775,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 0, 3, 0)] = rollinfo(74, partials, std::vector<unsigned>({0,2,3,0,15,0,20,0,0,0,0,0,20}));
+    ret[3930].reset(new rollinfo(74, std::move(partials), std::vector<unsigned>({0,2,3,0,15,0,20,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2821,7 +2821,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 1, 0, 2)] = rollinfo(75, partials, std::vector<unsigned>({0,2,3,4,0,12,0,0,0,0,0,0,21}));
+    ret[15810].reset(new rollinfo(75, std::move(partials), std::vector<unsigned>({0,2,3,4,0,12,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2875,7 +2875,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 1, 1, 1)] = rollinfo(76, partials, std::vector<unsigned>({0,2,3,4,5,6,0,0,0,40,50,0,20}));
+    ret[9330].reset(new rollinfo(76, std::move(partials), std::vector<unsigned>({0,2,3,4,5,6,0,0,0,40,50,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2921,7 +2921,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 1, 2, 0)] = rollinfo(77, partials, std::vector<unsigned>({0,2,3,4,10,0,0,0,0,40,0,0,19}));
+    ret[2850].reset(new rollinfo(77, std::move(partials), std::vector<unsigned>({0,2,3,4,10,0,0,0,0,40,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -2967,7 +2967,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 2, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 2, 0, 1)] = rollinfo(78, partials, std::vector<unsigned>({0,2,3,8,0,6,0,0,0,0,0,0,19}));
+    ret[8250].reset(new rollinfo(78, std::move(partials), std::vector<unsigned>({0,2,3,8,0,6,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3013,7 +3013,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 2, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 2, 1, 0)] = rollinfo(79, partials, std::vector<unsigned>({0,2,3,8,5,0,0,0,0,40,0,0,18}));
+    ret[1770].reset(new rollinfo(79, std::move(partials), std::vector<unsigned>({0,2,3,8,5,0,0,0,0,40,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3051,7 +3051,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 3, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 1, 3, 0, 0)] = rollinfo(80, partials, std::vector<unsigned>({0,2,3,12,0,0,17,0,0,0,0,0,17}));
+    ret[690].reset(new rollinfo(80, std::move(partials), std::vector<unsigned>({0,2,3,12,0,0,17,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3091,7 +3091,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 2, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 0, 0, 2)] = rollinfo(81, partials, std::vector<unsigned>({0,2,6,0,0,12,0,0,0,0,0,0,20}));
+    ret[15630].reset(new rollinfo(81, std::move(partials), std::vector<unsigned>({0,2,6,0,0,12,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3137,7 +3137,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 0, 1, 1)] = rollinfo(82, partials, std::vector<unsigned>({0,2,6,0,5,6,0,0,0,0,0,0,19}));
+    ret[9150].reset(new rollinfo(82, std::move(partials), std::vector<unsigned>({0,2,6,0,5,6,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3177,7 +3177,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 0, 2, 0)] = rollinfo(83, partials, std::vector<unsigned>({0,2,6,0,10,0,0,0,0,0,0,0,18}));
+    ret[2670].reset(new rollinfo(83, std::move(partials), std::vector<unsigned>({0,2,6,0,10,0,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3223,7 +3223,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 1, 0, 1)] = rollinfo(84, partials, std::vector<unsigned>({0,2,6,4,0,6,0,0,0,0,0,0,18}));
+    ret[8070].reset(new rollinfo(84, std::move(partials), std::vector<unsigned>({0,2,6,4,0,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3269,7 +3269,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 1, 1, 0)] = rollinfo(85, partials, std::vector<unsigned>({0,2,6,4,5,0,0,0,0,40,0,0,17}));
+    ret[1590].reset(new rollinfo(85, std::move(partials), std::vector<unsigned>({0,2,6,4,5,0,0,0,0,40,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3309,7 +3309,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 2, 2, 0, 0)] = rollinfo(86, partials, std::vector<unsigned>({0,2,6,8,0,0,0,0,0,0,0,0,16}));
+    ret[510].reset(new rollinfo(86, std::move(partials), std::vector<unsigned>({0,2,6,8,0,0,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3347,7 +3347,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 3, 0, 0, 1)] = rollinfo(87, partials, std::vector<unsigned>({0,2,9,0,0,6,17,0,0,0,0,0,17}));
+    ret[7890].reset(new rollinfo(87, std::move(partials), std::vector<unsigned>({0,2,9,0,0,6,17,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3385,7 +3385,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 3, 0, 1, 0)] = rollinfo(88, partials, std::vector<unsigned>({0,2,9,0,5,0,16,0,0,0,0,0,16}));
+    ret[1410].reset(new rollinfo(88, std::move(partials), std::vector<unsigned>({0,2,9,0,5,0,16,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3423,7 +3423,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 3, 1, 0, 0)] = rollinfo(89, partials, std::vector<unsigned>({0,2,9,4,0,0,15,0,0,0,0,0,15}));
+    ret[330].reset(new rollinfo(89, std::move(partials), std::vector<unsigned>({0,2,9,4,0,0,15,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3455,7 +3455,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 1, 4, 0, 0, 0)] = rollinfo(90, partials, std::vector<unsigned>({0,2,12,0,0,0,14,14,0,0,0,0,14}));
+    ret[150].reset(new rollinfo(90, std::move(partials), std::vector<unsigned>({0,2,12,0,0,0,14,14,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3489,7 +3489,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 0, 0, 3)] = rollinfo(91, partials, std::vector<unsigned>({0,4,0,0,0,18,22,0,25,0,0,0,22}));
+    ret[23340].reset(new rollinfo(91, std::move(partials), std::vector<unsigned>({0,4,0,0,0,18,22,0,25,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3529,7 +3529,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 0, 1, 2)] = rollinfo(92, partials, std::vector<unsigned>({0,4,0,0,5,12,0,0,0,0,0,0,21}));
+    ret[16860].reset(new rollinfo(92, std::move(partials), std::vector<unsigned>({0,4,0,0,5,12,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3569,7 +3569,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 0, 2, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 0, 2, 1)] = rollinfo(93, partials, std::vector<unsigned>({0,4,0,0,10,6,0,0,0,0,0,0,20}));
+    ret[10380].reset(new rollinfo(93, std::move(partials), std::vector<unsigned>({0,4,0,0,10,6,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3603,7 +3603,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 0, 3, 0)] = rollinfo(94, partials, std::vector<unsigned>({0,4,0,0,15,0,19,0,25,0,0,0,19}));
+    ret[3900].reset(new rollinfo(94, std::move(partials), std::vector<unsigned>({0,4,0,0,15,0,19,0,25,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3643,7 +3643,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 1, 0, 2)] = rollinfo(95, partials, std::vector<unsigned>({0,4,0,4,0,12,0,0,0,0,0,0,20}));
+    ret[15780].reset(new rollinfo(95, std::move(partials), std::vector<unsigned>({0,4,0,4,0,12,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3689,7 +3689,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 1, 1, 1)] = rollinfo(96, partials, std::vector<unsigned>({0,4,0,4,5,6,0,0,0,0,0,0,19}));
+    ret[9300].reset(new rollinfo(96, std::move(partials), std::vector<unsigned>({0,4,0,4,5,6,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3729,7 +3729,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 1, 2, 0)] = rollinfo(97, partials, std::vector<unsigned>({0,4,0,4,10,0,0,0,0,0,0,0,18}));
+    ret[2820].reset(new rollinfo(97, std::move(partials), std::vector<unsigned>({0,4,0,4,10,0,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3769,7 +3769,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 2, 0, 1)] = rollinfo(98, partials, std::vector<unsigned>({0,4,0,8,0,6,0,0,0,0,0,0,18}));
+    ret[8220].reset(new rollinfo(98, std::move(partials), std::vector<unsigned>({0,4,0,8,0,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3809,7 +3809,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 2, 1, 0)] = rollinfo(99, partials, std::vector<unsigned>({0,4,0,8,5,0,0,0,0,0,0,0,17}));
+    ret[1740].reset(new rollinfo(99, std::move(partials), std::vector<unsigned>({0,4,0,8,5,0,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3843,7 +3843,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 0, 3, 0, 0)] = rollinfo(100, partials, std::vector<unsigned>({0,4,0,12,0,0,16,0,25,0,0,0,16}));
+    ret[660].reset(new rollinfo(100, std::move(partials), std::vector<unsigned>({0,4,0,12,0,0,16,0,25,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3883,7 +3883,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 0, 0, 2)] = rollinfo(101, partials, std::vector<unsigned>({0,4,3,0,0,12,0,0,0,0,0,0,19}));
+    ret[15600].reset(new rollinfo(101, std::move(partials), std::vector<unsigned>({0,4,3,0,0,12,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3929,7 +3929,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 0, 1, 1)] = rollinfo(102, partials, std::vector<unsigned>({0,4,3,0,5,6,0,0,0,0,0,0,18}));
+    ret[9120].reset(new rollinfo(102, std::move(partials), std::vector<unsigned>({0,4,3,0,5,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -3969,7 +3969,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 0, 2, 0)] = rollinfo(103, partials, std::vector<unsigned>({0,4,3,0,10,0,0,0,0,0,0,0,17}));
+    ret[2640].reset(new rollinfo(103, std::move(partials), std::vector<unsigned>({0,4,3,0,10,0,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4015,7 +4015,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 1, 0, 1)] = rollinfo(104, partials, std::vector<unsigned>({0,4,3,4,0,6,0,0,0,0,0,0,17}));
+    ret[8040].reset(new rollinfo(104, std::move(partials), std::vector<unsigned>({0,4,3,4,0,6,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4061,7 +4061,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 1, 1, 0)] = rollinfo(105, partials, std::vector<unsigned>({0,4,3,4,5,0,0,0,0,40,0,0,16}));
+    ret[1560].reset(new rollinfo(105, std::move(partials), std::vector<unsigned>({0,4,3,4,5,0,0,0,0,40,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4101,7 +4101,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 1, 2, 0, 0)] = rollinfo(106, partials, std::vector<unsigned>({0,4,3,8,0,0,0,0,0,0,0,0,15}));
+    ret[480].reset(new rollinfo(106, std::move(partials), std::vector<unsigned>({0,4,3,8,0,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4141,7 +4141,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 2, 0, 0, 1)] = rollinfo(107, partials, std::vector<unsigned>({0,4,6,0,0,6,0,0,0,0,0,0,16}));
+    ret[7860].reset(new rollinfo(107, std::move(partials), std::vector<unsigned>({0,4,6,0,0,6,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4181,7 +4181,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 1, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 2, 0, 1, 0)] = rollinfo(108, partials, std::vector<unsigned>({0,4,6,0,5,0,0,0,0,0,0,0,15}));
+    ret[1380].reset(new rollinfo(108, std::move(partials), std::vector<unsigned>({0,4,6,0,5,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4221,7 +4221,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 1, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 2, 1, 0, 0)] = rollinfo(109, partials, std::vector<unsigned>({0,4,6,4,0,0,0,0,0,0,0,0,14}));
+    ret[300].reset(new rollinfo(109, std::move(partials), std::vector<unsigned>({0,4,6,4,0,0,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4255,7 +4255,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 1, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 2, 3, 0, 0, 0)] = rollinfo(110, partials, std::vector<unsigned>({0,4,9,0,0,0,13,0,25,0,0,0,13}));
+    ret[120].reset(new rollinfo(110, std::move(partials), std::vector<unsigned>({0,4,9,0,0,0,13,0,25,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4289,7 +4289,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 0, 0, 2)] = rollinfo(111, partials, std::vector<unsigned>({0,6,0,0,0,12,18,0,25,0,0,0,18}));
+    ret[15570].reset(new rollinfo(111, std::move(partials), std::vector<unsigned>({0,6,0,0,0,12,18,0,25,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4327,7 +4327,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 3, 0, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 0, 1, 1)] = rollinfo(112, partials, std::vector<unsigned>({0,6,0,0,5,6,17,0,0,0,0,0,17}));
+    ret[9090].reset(new rollinfo(112, std::move(partials), std::vector<unsigned>({0,6,0,0,5,6,17,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4361,7 +4361,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 0, 2, 0)] = rollinfo(113, partials, std::vector<unsigned>({0,6,0,0,10,0,16,0,25,0,0,0,16}));
+    ret[2610].reset(new rollinfo(113, std::move(partials), std::vector<unsigned>({0,6,0,0,10,0,16,0,25,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4399,7 +4399,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 1, 0, 1)] = rollinfo(114, partials, std::vector<unsigned>({0,6,0,4,0,6,16,0,0,0,0,0,16}));
+    ret[8010].reset(new rollinfo(114, std::move(partials), std::vector<unsigned>({0,6,0,4,0,6,16,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4437,7 +4437,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 1, 1, 0)] = rollinfo(115, partials, std::vector<unsigned>({0,6,0,4,5,0,15,0,0,0,0,0,15}));
+    ret[1530].reset(new rollinfo(115, std::move(partials), std::vector<unsigned>({0,6,0,4,5,0,15,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4471,7 +4471,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 0, 2, 0, 0)] = rollinfo(116, partials, std::vector<unsigned>({0,6,0,8,0,0,14,0,25,0,0,0,14}));
+    ret[450].reset(new rollinfo(116, std::move(partials), std::vector<unsigned>({0,6,0,8,0,0,14,0,25,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4509,7 +4509,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 3, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 1, 0, 0, 1)] = rollinfo(117, partials, std::vector<unsigned>({0,6,3,0,0,6,15,0,0,0,0,0,15}));
+    ret[7830].reset(new rollinfo(117, std::move(partials), std::vector<unsigned>({0,6,3,0,0,6,15,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4547,7 +4547,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 3, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 1, 0, 1, 0)] = rollinfo(118, partials, std::vector<unsigned>({0,6,3,0,5,0,14,0,0,0,0,0,14}));
+    ret[1350].reset(new rollinfo(118, std::move(partials), std::vector<unsigned>({0,6,3,0,5,0,14,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4585,7 +4585,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 3, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 1, 1, 0, 0)] = rollinfo(119, partials, std::vector<unsigned>({0,6,3,4,0,0,13,0,0,0,0,0,13}));
+    ret[270].reset(new rollinfo(119, std::move(partials), std::vector<unsigned>({0,6,3,4,0,0,13,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4619,7 +4619,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 3, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 3, 2, 0, 0, 0)] = rollinfo(120, partials, std::vector<unsigned>({0,6,6,0,0,0,12,0,25,0,0,0,12}));
+    ret[90].reset(new rollinfo(120, std::move(partials), std::vector<unsigned>({0,6,6,0,0,0,12,0,25,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4651,7 +4651,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 4, 0, 0, 0, 1)] = rollinfo(121, partials, std::vector<unsigned>({0,8,0,0,0,6,14,14,0,0,0,0,14}));
+    ret[7800].reset(new rollinfo(121, std::move(partials), std::vector<unsigned>({0,8,0,0,0,6,14,14,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4683,7 +4683,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 4, 0, 0, 1, 0)] = rollinfo(122, partials, std::vector<unsigned>({0,8,0,0,5,0,13,13,0,0,0,0,13}));
+    ret[1320].reset(new rollinfo(122, std::move(partials), std::vector<unsigned>({0,8,0,0,5,0,13,13,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4715,7 +4715,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 4, 0, 1, 0, 0)] = rollinfo(123, partials, std::vector<unsigned>({0,8,0,4,0,0,12,12,0,0,0,0,12}));
+    ret[240].reset(new rollinfo(123, std::move(partials), std::vector<unsigned>({0,8,0,4,0,0,12,12,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4747,7 +4747,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 4, 1, 0, 0, 0)] = rollinfo(124, partials, std::vector<unsigned>({0,8,3,0,0,0,11,11,0,0,0,0,11}));
+    ret[60].reset(new rollinfo(124, std::move(partials), std::vector<unsigned>({0,8,3,0,0,0,11,11,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4775,7 +4775,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(0, 5, 0, 0, 0, 0)] = rollinfo(125, partials, std::vector<unsigned>({0,10,0,0,0,0,10,10,0,0,0,50,10}));
+    ret[30].reset(new rollinfo(125, std::move(partials), std::vector<unsigned>({0,10,0,0,0,0,10,10,0,0,0,50,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4807,7 +4807,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 0, 4);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 0, 0, 4)] = rollinfo(126, partials, std::vector<unsigned>({1,0,0,0,0,24,25,25,0,0,0,0,25}));
+    ret[31105].reset(new rollinfo(126, std::move(partials), std::vector<unsigned>({1,0,0,0,0,24,25,25,0,0,0,0,25})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4845,7 +4845,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 1, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 0, 1, 3)] = rollinfo(127, partials, std::vector<unsigned>({1,0,0,0,5,18,24,0,0,0,0,0,24}));
+    ret[24625].reset(new rollinfo(127, std::move(partials), std::vector<unsigned>({1,0,0,0,5,18,24,0,0,0,0,0,24})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4885,7 +4885,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 0, 2, 2)] = rollinfo(128, partials, std::vector<unsigned>({1,0,0,0,10,12,0,0,0,0,0,0,23}));
+    ret[18145].reset(new rollinfo(128, std::move(partials), std::vector<unsigned>({1,0,0,0,10,12,0,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4923,7 +4923,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 3, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 0, 3, 1)] = rollinfo(129, partials, std::vector<unsigned>({1,0,0,0,15,6,22,0,0,0,0,0,22}));
+    ret[11665].reset(new rollinfo(129, std::move(partials), std::vector<unsigned>({1,0,0,0,15,6,22,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4955,7 +4955,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 0, 4, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 0, 4, 0)] = rollinfo(130, partials, std::vector<unsigned>({1,0,0,0,20,0,21,21,0,0,0,0,21}));
+    ret[5185].reset(new rollinfo(130, std::move(partials), std::vector<unsigned>({1,0,0,0,20,0,21,21,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -4993,7 +4993,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 0, 0, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 1, 0, 3)] = rollinfo(131, partials, std::vector<unsigned>({1,0,0,4,0,18,23,0,0,0,0,0,23}));
+    ret[23545].reset(new rollinfo(131, std::move(partials), std::vector<unsigned>({1,0,0,4,0,18,23,0,0,0,0,0,23})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5039,7 +5039,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 1, 1, 2)] = rollinfo(132, partials, std::vector<unsigned>({1,0,0,4,5,12,0,0,0,0,0,0,22}));
+    ret[17065].reset(new rollinfo(132, std::move(partials), std::vector<unsigned>({1,0,0,4,5,12,0,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5085,7 +5085,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 1, 2, 1)] = rollinfo(133, partials, std::vector<unsigned>({1,0,0,4,10,6,0,0,0,0,0,0,21}));
+    ret[10585].reset(new rollinfo(133, std::move(partials), std::vector<unsigned>({1,0,0,4,10,6,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5123,7 +5123,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 1, 3, 0)] = rollinfo(134, partials, std::vector<unsigned>({1,0,0,4,15,0,20,0,0,0,0,0,20}));
+    ret[4105].reset(new rollinfo(134, std::move(partials), std::vector<unsigned>({1,0,0,4,15,0,20,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5163,7 +5163,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 2, 0, 2)] = rollinfo(135, partials, std::vector<unsigned>({1,0,0,8,0,12,0,0,0,0,0,0,21}));
+    ret[15985].reset(new rollinfo(135, std::move(partials), std::vector<unsigned>({1,0,0,8,0,12,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5209,7 +5209,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 2, 1, 1)] = rollinfo(136, partials, std::vector<unsigned>({1,0,0,8,5,6,0,0,0,0,0,0,20}));
+    ret[9505].reset(new rollinfo(136, std::move(partials), std::vector<unsigned>({1,0,0,8,5,6,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5249,7 +5249,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 2, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 2, 2, 0)] = rollinfo(137, partials, std::vector<unsigned>({1,0,0,8,10,0,0,0,0,0,0,0,19}));
+    ret[3025].reset(new rollinfo(137, std::move(partials), std::vector<unsigned>({1,0,0,8,10,0,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5287,7 +5287,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 2, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 3, 0, 1)] = rollinfo(138, partials, std::vector<unsigned>({1,0,0,12,0,6,19,0,0,0,0,0,19}));
+    ret[8425].reset(new rollinfo(138, std::move(partials), std::vector<unsigned>({1,0,0,12,0,6,19,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5325,7 +5325,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 3, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 3, 1, 0)] = rollinfo(139, partials, std::vector<unsigned>({1,0,0,12,5,0,18,0,0,0,0,0,18}));
+    ret[1945].reset(new rollinfo(139, std::move(partials), std::vector<unsigned>({1,0,0,12,5,0,18,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5357,7 +5357,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 0, 4, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 0, 4, 0, 0)] = rollinfo(140, partials, std::vector<unsigned>({1,0,0,16,0,0,17,17,0,0,0,0,17}));
+    ret[865].reset(new rollinfo(140, std::move(partials), std::vector<unsigned>({1,0,0,16,0,0,17,17,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5395,7 +5395,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 0, 0, 3)] = rollinfo(141, partials, std::vector<unsigned>({1,0,3,0,0,18,22,0,0,0,0,0,22}));
+    ret[23365].reset(new rollinfo(141, std::move(partials), std::vector<unsigned>({1,0,3,0,0,18,22,0,0,0,0,0,22})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5441,7 +5441,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 0, 1, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 0, 1, 2)] = rollinfo(142, partials, std::vector<unsigned>({1,0,3,0,5,12,0,0,0,0,0,0,21}));
+    ret[16885].reset(new rollinfo(142, std::move(partials), std::vector<unsigned>({1,0,3,0,5,12,0,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5487,7 +5487,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 0, 2, 1)] = rollinfo(143, partials, std::vector<unsigned>({1,0,3,0,10,6,0,0,0,0,0,0,20}));
+    ret[10405].reset(new rollinfo(143, std::move(partials), std::vector<unsigned>({1,0,3,0,10,6,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5525,7 +5525,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 0, 3, 0)] = rollinfo(144, partials, std::vector<unsigned>({1,0,3,0,15,0,19,0,0,0,0,0,19}));
+    ret[3925].reset(new rollinfo(144, std::move(partials), std::vector<unsigned>({1,0,3,0,15,0,19,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5571,7 +5571,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 1, 0, 2)] = rollinfo(145, partials, std::vector<unsigned>({1,0,3,4,0,12,0,0,0,0,0,0,20}));
+    ret[15805].reset(new rollinfo(145, std::move(partials), std::vector<unsigned>({1,0,3,4,0,12,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5625,7 +5625,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 1, 1, 1)] = rollinfo(146, partials, std::vector<unsigned>({1,0,3,4,5,6,0,0,0,40,0,0,19}));
+    ret[9325].reset(new rollinfo(146, std::move(partials), std::vector<unsigned>({1,0,3,4,5,6,0,0,0,40,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5671,7 +5671,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 1, 2, 0)] = rollinfo(147, partials, std::vector<unsigned>({1,0,3,4,10,0,0,0,0,0,0,0,18}));
+    ret[2845].reset(new rollinfo(147, std::move(partials), std::vector<unsigned>({1,0,3,4,10,0,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5717,7 +5717,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 2, 0, 1)] = rollinfo(148, partials, std::vector<unsigned>({1,0,3,8,0,6,0,0,0,0,0,0,18}));
+    ret[8245].reset(new rollinfo(148, std::move(partials), std::vector<unsigned>({1,0,3,8,0,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5763,7 +5763,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 1, 2, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 2, 1, 0)] = rollinfo(149, partials, std::vector<unsigned>({1,0,3,8,5,0,0,0,0,0,0,0,17}));
+    ret[1765].reset(new rollinfo(149, std::move(partials), std::vector<unsigned>({1,0,3,8,5,0,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5801,7 +5801,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 1, 3, 0, 0)] = rollinfo(150, partials, std::vector<unsigned>({1,0,3,12,0,0,16,0,0,0,0,0,16}));
+    ret[685].reset(new rollinfo(150, std::move(partials), std::vector<unsigned>({1,0,3,12,0,0,16,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5841,7 +5841,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 0, 0, 2)] = rollinfo(151, partials, std::vector<unsigned>({1,0,6,0,0,12,0,0,0,0,0,0,19}));
+    ret[15625].reset(new rollinfo(151, std::move(partials), std::vector<unsigned>({1,0,6,0,0,12,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5887,7 +5887,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 0, 1, 1)] = rollinfo(152, partials, std::vector<unsigned>({1,0,6,0,5,6,0,0,0,0,0,0,18}));
+    ret[9145].reset(new rollinfo(152, std::move(partials), std::vector<unsigned>({1,0,6,0,5,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5927,7 +5927,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 0, 2, 0)] = rollinfo(153, partials, std::vector<unsigned>({1,0,6,0,10,0,0,0,0,0,0,0,17}));
+    ret[2665].reset(new rollinfo(153, std::move(partials), std::vector<unsigned>({1,0,6,0,10,0,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -5973,7 +5973,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 1, 0, 1)] = rollinfo(154, partials, std::vector<unsigned>({1,0,6,4,0,6,0,0,0,0,0,0,17}));
+    ret[8065].reset(new rollinfo(154, std::move(partials), std::vector<unsigned>({1,0,6,4,0,6,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6019,7 +6019,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 0, 2, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 1, 1, 0)] = rollinfo(155, partials, std::vector<unsigned>({1,0,6,4,5,0,0,0,0,0,0,0,16}));
+    ret[1585].reset(new rollinfo(155, std::move(partials), std::vector<unsigned>({1,0,6,4,5,0,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6059,7 +6059,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 2, 2, 0, 0)] = rollinfo(156, partials, std::vector<unsigned>({1,0,6,8,0,0,0,0,0,0,0,0,15}));
+    ret[505].reset(new rollinfo(156, std::move(partials), std::vector<unsigned>({1,0,6,8,0,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6097,7 +6097,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 3, 0, 0, 1)] = rollinfo(157, partials, std::vector<unsigned>({1,0,9,0,0,6,16,0,0,0,0,0,16}));
+    ret[7885].reset(new rollinfo(157, std::move(partials), std::vector<unsigned>({1,0,9,0,0,6,16,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6135,7 +6135,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 3, 0, 1, 0)] = rollinfo(158, partials, std::vector<unsigned>({1,0,9,0,5,0,15,0,0,0,0,0,15}));
+    ret[1405].reset(new rollinfo(158, std::move(partials), std::vector<unsigned>({1,0,9,0,5,0,15,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6173,7 +6173,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 3, 1, 0, 0)] = rollinfo(159, partials, std::vector<unsigned>({1,0,9,4,0,0,14,0,0,0,0,0,14}));
+    ret[325].reset(new rollinfo(159, std::move(partials), std::vector<unsigned>({1,0,9,4,0,0,14,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6205,7 +6205,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 0, 4, 0, 0, 0)] = rollinfo(160, partials, std::vector<unsigned>({1,0,12,0,0,0,13,13,0,0,0,0,13}));
+    ret[145].reset(new rollinfo(160, std::move(partials), std::vector<unsigned>({1,0,12,0,0,0,13,13,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6243,7 +6243,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 0, 0, 3)] = rollinfo(161, partials, std::vector<unsigned>({1,2,0,0,0,18,21,0,0,0,0,0,21}));
+    ret[23335].reset(new rollinfo(161, std::move(partials), std::vector<unsigned>({1,2,0,0,0,18,21,0,0,0,0,0,21})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6289,7 +6289,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 0, 1, 2)] = rollinfo(162, partials, std::vector<unsigned>({1,2,0,0,5,12,0,0,0,0,0,0,20}));
+    ret[16855].reset(new rollinfo(162, std::move(partials), std::vector<unsigned>({1,2,0,0,5,12,0,0,0,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6335,7 +6335,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 0, 2, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 0, 2, 1)] = rollinfo(163, partials, std::vector<unsigned>({1,2,0,0,10,6,0,0,0,0,0,0,19}));
+    ret[10375].reset(new rollinfo(163, std::move(partials), std::vector<unsigned>({1,2,0,0,10,6,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6373,7 +6373,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 0, 3, 0)] = rollinfo(164, partials, std::vector<unsigned>({1,2,0,0,15,0,18,0,0,0,0,0,18}));
+    ret[3895].reset(new rollinfo(164, std::move(partials), std::vector<unsigned>({1,2,0,0,15,0,18,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6419,7 +6419,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 1, 0, 2)] = rollinfo(165, partials, std::vector<unsigned>({1,2,0,4,0,12,0,0,0,0,0,0,19}));
+    ret[15775].reset(new rollinfo(165, std::move(partials), std::vector<unsigned>({1,2,0,4,0,12,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6473,7 +6473,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 1, 1, 1)] = rollinfo(166, partials, std::vector<unsigned>({1,2,0,4,5,6,0,0,0,0,0,0,18}));
+    ret[9295].reset(new rollinfo(166, std::move(partials), std::vector<unsigned>({1,2,0,4,5,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6519,7 +6519,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 1, 2, 0)] = rollinfo(167, partials, std::vector<unsigned>({1,2,0,4,10,0,0,0,0,0,0,0,17}));
+    ret[2815].reset(new rollinfo(167, std::move(partials), std::vector<unsigned>({1,2,0,4,10,0,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6565,7 +6565,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 2, 0, 1)] = rollinfo(168, partials, std::vector<unsigned>({1,2,0,8,0,6,0,0,0,0,0,0,17}));
+    ret[8215].reset(new rollinfo(168, std::move(partials), std::vector<unsigned>({1,2,0,8,0,6,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6611,7 +6611,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 2, 1, 0)] = rollinfo(169, partials, std::vector<unsigned>({1,2,0,8,5,0,0,0,0,0,0,0,16}));
+    ret[1735].reset(new rollinfo(169, std::move(partials), std::vector<unsigned>({1,2,0,8,5,0,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6649,7 +6649,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 0, 3, 0, 0)] = rollinfo(170, partials, std::vector<unsigned>({1,2,0,12,0,0,15,0,0,0,0,0,15}));
+    ret[655].reset(new rollinfo(170, std::move(partials), std::vector<unsigned>({1,2,0,12,0,0,15,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6695,7 +6695,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 0, 0, 2)] = rollinfo(171, partials, std::vector<unsigned>({1,2,3,0,0,12,0,0,0,0,0,0,18}));
+    ret[15595].reset(new rollinfo(171, std::move(partials), std::vector<unsigned>({1,2,3,0,0,12,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6749,7 +6749,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 0, 1, 1)] = rollinfo(172, partials, std::vector<unsigned>({1,2,3,0,5,6,0,0,0,0,0,0,17}));
+    ret[9115].reset(new rollinfo(172, std::move(partials), std::vector<unsigned>({1,2,3,0,5,6,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6795,7 +6795,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 0, 2, 0)] = rollinfo(173, partials, std::vector<unsigned>({1,2,3,0,10,0,0,0,0,0,0,0,16}));
+    ret[2635].reset(new rollinfo(173, std::move(partials), std::vector<unsigned>({1,2,3,0,10,0,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6849,7 +6849,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 1, 0, 1)] = rollinfo(174, partials, std::vector<unsigned>({1,2,3,4,0,6,0,0,0,40,0,0,16}));
+    ret[8035].reset(new rollinfo(174, std::move(partials), std::vector<unsigned>({1,2,3,4,0,6,0,0,0,40,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6903,7 +6903,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 1, 1, 0)] = rollinfo(175, partials, std::vector<unsigned>({1,2,3,4,5,0,0,0,0,40,50,0,15}));
+    ret[1555].reset(new rollinfo(175, std::move(partials), std::vector<unsigned>({1,2,3,4,5,0,0,0,0,40,50,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6949,7 +6949,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 1, 2, 0, 0)] = rollinfo(176, partials, std::vector<unsigned>({1,2,3,8,0,0,0,0,0,40,0,0,14}));
+    ret[475].reset(new rollinfo(176, std::move(partials), std::vector<unsigned>({1,2,3,8,0,0,0,0,0,40,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -6995,7 +6995,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 2, 0, 0, 1)] = rollinfo(177, partials, std::vector<unsigned>({1,2,6,0,0,6,0,0,0,0,0,0,15}));
+    ret[7855].reset(new rollinfo(177, std::move(partials), std::vector<unsigned>({1,2,6,0,0,6,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7041,7 +7041,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 2, 0, 1, 0)] = rollinfo(178, partials, std::vector<unsigned>({1,2,6,0,5,0,0,0,0,0,0,0,14}));
+    ret[1375].reset(new rollinfo(178, std::move(partials), std::vector<unsigned>({1,2,6,0,5,0,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7087,7 +7087,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 2, 1, 0, 0)] = rollinfo(179, partials, std::vector<unsigned>({1,2,6,4,0,0,0,0,0,40,0,0,13}));
+    ret[295].reset(new rollinfo(179, std::move(partials), std::vector<unsigned>({1,2,6,4,0,0,0,0,0,40,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7125,7 +7125,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 1, 3, 0, 0, 0)] = rollinfo(180, partials, std::vector<unsigned>({1,2,9,0,0,0,12,0,0,0,0,0,12}));
+    ret[115].reset(new rollinfo(180, std::move(partials), std::vector<unsigned>({1,2,9,0,0,0,12,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7165,7 +7165,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 0, 0, 2)] = rollinfo(181, partials, std::vector<unsigned>({1,4,0,0,0,12,0,0,0,0,0,0,17}));
+    ret[15565].reset(new rollinfo(181, std::move(partials), std::vector<unsigned>({1,4,0,0,0,12,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7211,7 +7211,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 0, 1, 1)] = rollinfo(182, partials, std::vector<unsigned>({1,4,0,0,5,6,0,0,0,0,0,0,16}));
+    ret[9085].reset(new rollinfo(182, std::move(partials), std::vector<unsigned>({1,4,0,0,5,6,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7251,7 +7251,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 0, 2, 0)] = rollinfo(183, partials, std::vector<unsigned>({1,4,0,0,10,0,0,0,0,0,0,0,15}));
+    ret[2605].reset(new rollinfo(183, std::move(partials), std::vector<unsigned>({1,4,0,0,10,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7297,7 +7297,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 1, 0, 1)] = rollinfo(184, partials, std::vector<unsigned>({1,4,0,4,0,6,0,0,0,0,0,0,15}));
+    ret[8005].reset(new rollinfo(184, std::move(partials), std::vector<unsigned>({1,4,0,4,0,6,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7343,7 +7343,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 1, 1, 0)] = rollinfo(185, partials, std::vector<unsigned>({1,4,0,4,5,0,0,0,0,0,0,0,14}));
+    ret[1525].reset(new rollinfo(185, std::move(partials), std::vector<unsigned>({1,4,0,4,5,0,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7383,7 +7383,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 2, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 0, 2, 0, 0)] = rollinfo(186, partials, std::vector<unsigned>({1,4,0,8,0,0,0,0,0,0,0,0,13}));
+    ret[445].reset(new rollinfo(186, std::move(partials), std::vector<unsigned>({1,4,0,8,0,0,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7429,7 +7429,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 1, 0, 0, 1)] = rollinfo(187, partials, std::vector<unsigned>({1,4,3,0,0,6,0,0,0,0,0,0,14}));
+    ret[7825].reset(new rollinfo(187, std::move(partials), std::vector<unsigned>({1,4,3,0,0,6,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7475,7 +7475,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 1, 0, 1, 0)] = rollinfo(188, partials, std::vector<unsigned>({1,4,3,0,5,0,0,0,0,0,0,0,13}));
+    ret[1345].reset(new rollinfo(188, std::move(partials), std::vector<unsigned>({1,4,3,0,5,0,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7521,7 +7521,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 1, 1, 0, 0)] = rollinfo(189, partials, std::vector<unsigned>({1,4,3,4,0,0,0,0,0,40,0,0,12}));
+    ret[265].reset(new rollinfo(189, std::move(partials), std::vector<unsigned>({1,4,3,4,0,0,0,0,0,40,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7561,7 +7561,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 2, 2, 0, 0, 0)] = rollinfo(190, partials, std::vector<unsigned>({1,4,6,0,0,0,0,0,0,0,0,0,11}));
+    ret[85].reset(new rollinfo(190, std::move(partials), std::vector<unsigned>({1,4,6,0,0,0,0,0,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7599,7 +7599,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 3, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 3, 0, 0, 0, 1)] = rollinfo(191, partials, std::vector<unsigned>({1,6,0,0,0,6,13,0,0,0,0,0,13}));
+    ret[7795].reset(new rollinfo(191, std::move(partials), std::vector<unsigned>({1,6,0,0,0,6,13,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7637,7 +7637,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 3, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 3, 0, 0, 1, 0)] = rollinfo(192, partials, std::vector<unsigned>({1,6,0,0,5,0,12,0,0,0,0,0,12}));
+    ret[1315].reset(new rollinfo(192, std::move(partials), std::vector<unsigned>({1,6,0,0,5,0,12,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7675,7 +7675,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 3, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 3, 0, 1, 0, 0)] = rollinfo(193, partials, std::vector<unsigned>({1,6,0,4,0,0,11,0,0,0,0,0,11}));
+    ret[235].reset(new rollinfo(193, std::move(partials), std::vector<unsigned>({1,6,0,4,0,0,11,0,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7713,7 +7713,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 3, 1, 0, 0, 0)] = rollinfo(194, partials, std::vector<unsigned>({1,6,3,0,0,0,10,0,0,0,0,0,10}));
+    ret[55].reset(new rollinfo(194, std::move(partials), std::vector<unsigned>({1,6,3,0,0,0,10,0,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7745,7 +7745,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(0, 4, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(1, 4, 0, 0, 0, 0)] = rollinfo(195, partials, std::vector<unsigned>({1,8,0,0,0,0,9,9,0,0,0,0,9}));
+    ret[25].reset(new rollinfo(195, std::move(partials), std::vector<unsigned>({1,8,0,0,0,0,9,9,0,0,0,0,9})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7779,7 +7779,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 0, 0, 3);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 0, 0, 3)] = rollinfo(196, partials, std::vector<unsigned>({2,0,0,0,0,18,20,0,25,0,0,0,20}));
+    ret[23330].reset(new rollinfo(196, std::move(partials), std::vector<unsigned>({2,0,0,0,0,18,20,0,25,0,0,0,20})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7819,7 +7819,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 0, 1, 2)] = rollinfo(197, partials, std::vector<unsigned>({2,0,0,0,5,12,0,0,0,0,0,0,19}));
+    ret[16850].reset(new rollinfo(197, std::move(partials), std::vector<unsigned>({2,0,0,0,5,12,0,0,0,0,0,0,19})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7859,7 +7859,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 0, 2, 1)] = rollinfo(198, partials, std::vector<unsigned>({2,0,0,0,10,6,0,0,0,0,0,0,18}));
+    ret[10370].reset(new rollinfo(198, std::move(partials), std::vector<unsigned>({2,0,0,0,10,6,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7893,7 +7893,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 0, 3, 0)] = rollinfo(199, partials, std::vector<unsigned>({2,0,0,0,15,0,17,0,25,0,0,0,17}));
+    ret[3890].reset(new rollinfo(199, std::move(partials), std::vector<unsigned>({2,0,0,0,15,0,17,0,25,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7933,7 +7933,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 1, 0, 2)] = rollinfo(200, partials, std::vector<unsigned>({2,0,0,4,0,12,0,0,0,0,0,0,18}));
+    ret[15770].reset(new rollinfo(200, std::move(partials), std::vector<unsigned>({2,0,0,4,0,12,0,0,0,0,0,0,18})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -7979,7 +7979,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 1, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 1, 1, 1)] = rollinfo(201, partials, std::vector<unsigned>({2,0,0,4,5,6,0,0,0,0,0,0,17}));
+    ret[9290].reset(new rollinfo(201, std::move(partials), std::vector<unsigned>({2,0,0,4,5,6,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8019,7 +8019,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 1, 2, 0)] = rollinfo(202, partials, std::vector<unsigned>({2,0,0,4,10,0,0,0,0,0,0,0,16}));
+    ret[2810].reset(new rollinfo(202, std::move(partials), std::vector<unsigned>({2,0,0,4,10,0,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8059,7 +8059,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 2, 0, 1)] = rollinfo(203, partials, std::vector<unsigned>({2,0,0,8,0,6,0,0,0,0,0,0,16}));
+    ret[8210].reset(new rollinfo(203, std::move(partials), std::vector<unsigned>({2,0,0,8,0,6,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8099,7 +8099,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 0, 2, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 2, 1, 0)] = rollinfo(204, partials, std::vector<unsigned>({2,0,0,8,5,0,0,0,0,0,0,0,15}));
+    ret[1730].reset(new rollinfo(204, std::move(partials), std::vector<unsigned>({2,0,0,8,5,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8133,7 +8133,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 0, 3, 0, 0)] = rollinfo(205, partials, std::vector<unsigned>({2,0,0,12,0,0,14,0,25,0,0,0,14}));
+    ret[650].reset(new rollinfo(205, std::move(partials), std::vector<unsigned>({2,0,0,12,0,0,14,0,25,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8173,7 +8173,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 0, 0, 2)] = rollinfo(206, partials, std::vector<unsigned>({2,0,3,0,0,12,0,0,0,0,0,0,17}));
+    ret[15590].reset(new rollinfo(206, std::move(partials), std::vector<unsigned>({2,0,3,0,0,12,0,0,0,0,0,0,17})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8219,7 +8219,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 0, 1, 1)] = rollinfo(207, partials, std::vector<unsigned>({2,0,3,0,5,6,0,0,0,0,0,0,16}));
+    ret[9110].reset(new rollinfo(207, std::move(partials), std::vector<unsigned>({2,0,3,0,5,6,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8259,7 +8259,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 0, 2, 0)] = rollinfo(208, partials, std::vector<unsigned>({2,0,3,0,10,0,0,0,0,0,0,0,15}));
+    ret[2630].reset(new rollinfo(208, std::move(partials), std::vector<unsigned>({2,0,3,0,10,0,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8305,7 +8305,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 1, 0, 1)] = rollinfo(209, partials, std::vector<unsigned>({2,0,3,4,0,6,0,0,0,0,0,0,15}));
+    ret[8030].reset(new rollinfo(209, std::move(partials), std::vector<unsigned>({2,0,3,4,0,6,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8351,7 +8351,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 1, 1, 0)] = rollinfo(210, partials, std::vector<unsigned>({2,0,3,4,5,0,0,0,0,0,0,0,14}));
+    ret[1550].reset(new rollinfo(210, std::move(partials), std::vector<unsigned>({2,0,3,4,5,0,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8391,7 +8391,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 1, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 1, 2, 0, 0)] = rollinfo(211, partials, std::vector<unsigned>({2,0,3,8,0,0,0,0,0,0,0,0,13}));
+    ret[470].reset(new rollinfo(211, std::move(partials), std::vector<unsigned>({2,0,3,8,0,0,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8431,7 +8431,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 2, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 2, 0, 0, 1)] = rollinfo(212, partials, std::vector<unsigned>({2,0,6,0,0,6,0,0,0,0,0,0,14}));
+    ret[7850].reset(new rollinfo(212, std::move(partials), std::vector<unsigned>({2,0,6,0,0,6,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8471,7 +8471,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 2, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 2, 0, 1, 0)] = rollinfo(213, partials, std::vector<unsigned>({2,0,6,0,5,0,0,0,0,0,0,0,13}));
+    ret[1370].reset(new rollinfo(213, std::move(partials), std::vector<unsigned>({2,0,6,0,5,0,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8511,7 +8511,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 2, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 2, 1, 0, 0)] = rollinfo(214, partials, std::vector<unsigned>({2,0,6,4,0,0,0,0,0,0,0,0,12}));
+    ret[290].reset(new rollinfo(214, std::move(partials), std::vector<unsigned>({2,0,6,4,0,0,0,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8545,7 +8545,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 0, 3, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 0, 3, 0, 0, 0)] = rollinfo(215, partials, std::vector<unsigned>({2,0,9,0,0,0,11,0,25,0,0,0,11}));
+    ret[110].reset(new rollinfo(215, std::move(partials), std::vector<unsigned>({2,0,9,0,0,0,11,0,25,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8585,7 +8585,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 0, 2);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 0, 0, 2)] = rollinfo(216, partials, std::vector<unsigned>({2,2,0,0,0,12,0,0,0,0,0,0,16}));
+    ret[15560].reset(new rollinfo(216, std::move(partials), std::vector<unsigned>({2,2,0,0,0,12,0,0,0,0,0,0,16})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8631,7 +8631,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 0, 1, 1)] = rollinfo(217, partials, std::vector<unsigned>({2,2,0,0,5,6,0,0,0,0,0,0,15}));
+    ret[9080].reset(new rollinfo(217, std::move(partials), std::vector<unsigned>({2,2,0,0,5,6,0,0,0,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8671,7 +8671,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 0, 2, 0)] = rollinfo(218, partials, std::vector<unsigned>({2,2,0,0,10,0,0,0,0,0,0,0,14}));
+    ret[2600].reset(new rollinfo(218, std::move(partials), std::vector<unsigned>({2,2,0,0,10,0,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8717,7 +8717,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 1, 0, 1)] = rollinfo(219, partials, std::vector<unsigned>({2,2,0,4,0,6,0,0,0,0,0,0,14}));
+    ret[8000].reset(new rollinfo(219, std::move(partials), std::vector<unsigned>({2,2,0,4,0,6,0,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8763,7 +8763,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 1, 1, 0)] = rollinfo(220, partials, std::vector<unsigned>({2,2,0,4,5,0,0,0,0,0,0,0,13}));
+    ret[1520].reset(new rollinfo(220, std::move(partials), std::vector<unsigned>({2,2,0,4,5,0,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8803,7 +8803,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 0, 2, 0, 0)] = rollinfo(221, partials, std::vector<unsigned>({2,2,0,8,0,0,0,0,0,0,0,0,12}));
+    ret[440].reset(new rollinfo(221, std::move(partials), std::vector<unsigned>({2,2,0,8,0,0,0,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8849,7 +8849,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 1, 1, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 1, 0, 0, 1)] = rollinfo(222, partials, std::vector<unsigned>({2,2,3,0,0,6,0,0,0,0,0,0,13}));
+    ret[7820].reset(new rollinfo(222, std::move(partials), std::vector<unsigned>({2,2,3,0,0,6,0,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8895,7 +8895,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 1, 0, 1, 0)] = rollinfo(223, partials, std::vector<unsigned>({2,2,3,0,5,0,0,0,0,0,0,0,12}));
+    ret[1340].reset(new rollinfo(223, std::move(partials), std::vector<unsigned>({2,2,3,0,5,0,0,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8941,7 +8941,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 1, 1, 0, 0)] = rollinfo(224, partials, std::vector<unsigned>({2,2,3,4,0,0,0,0,0,40,0,0,11}));
+    ret[260].reset(new rollinfo(224, std::move(partials), std::vector<unsigned>({2,2,3,4,0,0,0,0,0,40,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -8981,7 +8981,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 2, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 1, 2, 0, 0, 0)] = rollinfo(225, partials, std::vector<unsigned>({2,2,6,0,0,0,0,0,0,0,0,0,10}));
+    ret[80].reset(new rollinfo(225, std::move(partials), std::vector<unsigned>({2,2,6,0,0,0,0,0,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9021,7 +9021,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 2, 0, 0, 0, 1)] = rollinfo(226, partials, std::vector<unsigned>({2,4,0,0,0,6,0,0,0,0,0,0,12}));
+    ret[7790].reset(new rollinfo(226, std::move(partials), std::vector<unsigned>({2,4,0,0,0,6,0,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9061,7 +9061,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 0, 0, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 2, 0, 0, 1, 0)] = rollinfo(227, partials, std::vector<unsigned>({2,4,0,0,5,0,0,0,0,0,0,0,11}));
+    ret[1310].reset(new rollinfo(227, std::move(partials), std::vector<unsigned>({2,4,0,0,5,0,0,0,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9101,7 +9101,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 2, 0, 1, 0, 0)] = rollinfo(228, partials, std::vector<unsigned>({2,4,0,4,0,0,0,0,0,0,0,0,10}));
+    ret[230].reset(new rollinfo(228, std::move(partials), std::vector<unsigned>({2,4,0,4,0,0,0,0,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9141,7 +9141,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 2, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 2, 1, 0, 0, 0)] = rollinfo(229, partials, std::vector<unsigned>({2,4,3,0,0,0,0,0,0,0,0,0,9}));
+    ret[50].reset(new rollinfo(229, std::move(partials), std::vector<unsigned>({2,4,3,0,0,0,0,0,0,0,0,0,9})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9175,7 +9175,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(1, 3, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(2, 3, 0, 0, 0, 0)] = rollinfo(230, partials, std::vector<unsigned>({2,6,0,0,0,0,8,0,25,0,0,0,8}));
+    ret[20].reset(new rollinfo(230, std::move(partials), std::vector<unsigned>({2,6,0,0,0,0,8,0,25,0,0,0,8})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9209,7 +9209,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 0, 0, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 0, 0, 2)] = rollinfo(231, partials, std::vector<unsigned>({3,0,0,0,0,12,15,0,25,0,0,0,15}));
+    ret[15555].reset(new rollinfo(231, std::move(partials), std::vector<unsigned>({3,0,0,0,0,12,15,0,25,0,0,0,15})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9247,7 +9247,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 1, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 0, 1, 1)] = rollinfo(232, partials, std::vector<unsigned>({3,0,0,0,5,6,14,0,0,0,0,0,14}));
+    ret[9075].reset(new rollinfo(232, std::move(partials), std::vector<unsigned>({3,0,0,0,5,6,14,0,0,0,0,0,14})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9281,7 +9281,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 0, 2, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 0, 2, 0)] = rollinfo(233, partials, std::vector<unsigned>({3,0,0,0,10,0,13,0,25,0,0,0,13}));
+    ret[2595].reset(new rollinfo(233, std::move(partials), std::vector<unsigned>({3,0,0,0,10,0,13,0,25,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9319,7 +9319,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 1, 0, 1);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 1, 0, 1)] = rollinfo(234, partials, std::vector<unsigned>({3,0,0,4,0,6,13,0,0,0,0,0,13}));
+    ret[7995].reset(new rollinfo(234, std::move(partials), std::vector<unsigned>({3,0,0,4,0,6,13,0,0,0,0,0,13})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9357,7 +9357,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 1, 1, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 1, 1, 0)] = rollinfo(235, partials, std::vector<unsigned>({3,0,0,4,5,0,12,0,0,0,0,0,12}));
+    ret[1515].reset(new rollinfo(235, std::move(partials), std::vector<unsigned>({3,0,0,4,5,0,12,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9391,7 +9391,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 0, 0, 2, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 0, 2, 0, 0)] = rollinfo(236, partials, std::vector<unsigned>({3,0,0,8,0,0,11,0,25,0,0,0,11}));
+    ret[435].reset(new rollinfo(236, std::move(partials), std::vector<unsigned>({3,0,0,8,0,0,11,0,25,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9429,7 +9429,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 1, 0, 0, 1)] = rollinfo(237, partials, std::vector<unsigned>({3,0,3,0,0,6,12,0,0,0,0,0,12}));
+    ret[7815].reset(new rollinfo(237, std::move(partials), std::vector<unsigned>({3,0,3,0,0,6,12,0,0,0,0,0,12})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9467,7 +9467,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 1, 0, 1, 0)] = rollinfo(238, partials, std::vector<unsigned>({3,0,3,0,5,0,11,0,0,0,0,0,11}));
+    ret[1335].reset(new rollinfo(238, std::move(partials), std::vector<unsigned>({3,0,3,0,5,0,11,0,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9505,7 +9505,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 1, 1, 0, 0)] = rollinfo(239, partials, std::vector<unsigned>({3,0,3,4,0,0,10,0,0,0,0,0,10}));
+    ret[255].reset(new rollinfo(239, std::move(partials), std::vector<unsigned>({3,0,3,4,0,0,10,0,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9539,7 +9539,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 0, 2, 0, 0, 0)] = rollinfo(240, partials, std::vector<unsigned>({3,0,6,0,0,0,9,0,25,0,0,0,9}));
+    ret[75].reset(new rollinfo(240, std::move(partials), std::vector<unsigned>({3,0,6,0,0,0,9,0,25,0,0,0,9})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9577,7 +9577,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 1, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 1, 0, 0, 0, 1)] = rollinfo(241, partials, std::vector<unsigned>({3,2,0,0,0,6,11,0,0,0,0,0,11}));
+    ret[7785].reset(new rollinfo(241, std::move(partials), std::vector<unsigned>({3,2,0,0,0,6,11,0,0,0,0,0,11})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9615,7 +9615,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 1, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 1, 0, 0, 1, 0)] = rollinfo(242, partials, std::vector<unsigned>({3,2,0,0,5,0,10,0,0,0,0,0,10}));
+    ret[1305].reset(new rollinfo(242, std::move(partials), std::vector<unsigned>({3,2,0,0,5,0,10,0,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9653,7 +9653,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(2, 1, 0, 1, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 1, 0, 1, 0, 0)] = rollinfo(243, partials, std::vector<unsigned>({3,2,0,4,0,0,9,0,0,0,0,0,9}));
+    ret[225].reset(new rollinfo(243, std::move(partials), std::vector<unsigned>({3,2,0,4,0,0,9,0,0,0,0,0,9})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9691,7 +9691,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 1, 1, 0, 0, 0)] = rollinfo(244, partials, std::vector<unsigned>({3,2,3,0,0,0,8,0,0,0,0,0,8}));
+    ret[45].reset(new rollinfo(244, std::move(partials), std::vector<unsigned>({3,2,3,0,0,0,8,0,0,0,0,0,8})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9725,7 +9725,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 1, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(3, 2, 0, 0, 0, 0)] = rollinfo(245, partials, std::vector<unsigned>({3,4,0,0,0,0,7,0,25,0,0,0,7}));
+    ret[15].reset(new rollinfo(245, std::move(partials), std::vector<unsigned>({3,4,0,0,0,0,7,0,25,0,0,0,7})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9757,7 +9757,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(4, 0, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(4, 0, 0, 0, 0, 1)] = rollinfo(246, partials, std::vector<unsigned>({4,0,0,0,0,6,10,10,0,0,0,0,10}));
+    ret[7780].reset(new rollinfo(246, std::move(partials), std::vector<unsigned>({4,0,0,0,0,6,10,10,0,0,0,0,10})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9789,7 +9789,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(4, 0, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(4, 0, 0, 0, 1, 0)] = rollinfo(247, partials, std::vector<unsigned>({4,0,0,0,5,0,9,9,0,0,0,0,9}));
+    ret[1300].reset(new rollinfo(247, std::move(partials), std::vector<unsigned>({4,0,0,0,5,0,9,9,0,0,0,0,9})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9821,7 +9821,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(4, 0, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(4, 0, 0, 1, 0, 0)] = rollinfo(248, partials, std::vector<unsigned>({4,0,0,4,0,0,8,8,0,0,0,0,8}));
+    ret[220].reset(new rollinfo(248, std::move(partials), std::vector<unsigned>({4,0,0,4,0,0,8,8,0,0,0,0,8})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9853,7 +9853,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 0, 1, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(4, 0, 1, 0, 0, 0)] = rollinfo(249, partials, std::vector<unsigned>({4,0,3,0,0,0,7,7,0,0,0,0,7}));
+    ret[40].reset(new rollinfo(249, std::move(partials), std::vector<unsigned>({4,0,3,0,0,0,7,7,0,0,0,0,7})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9885,7 +9885,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(3, 1, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(4, 1, 0, 0, 0, 0)] = rollinfo(250, partials, std::vector<unsigned>({4,2,0,0,0,0,6,6,0,0,0,0,6}));
+    ret[10].reset(new rollinfo(250, std::move(partials), std::vector<unsigned>({4,2,0,0,0,0,6,6,0,0,0,0,6})));
   }
   {
     std::vector< std::vector< diceroll > > partials;
@@ -9913,7 +9913,7 @@ std::unordered_map<diceroll, rollinfo> MakeRollInfos() {
       p.emplace_back(4, 0, 0, 0, 0, 0);
       partials.emplace_back(p);
     }
-    ret[diceroll(5, 0, 0, 0, 0, 0)] = rollinfo(251, partials, std::vector<unsigned>({5,0,0,0,0,0,5,5,0,0,0,50,5}));
+    ret[5].reset(new rollinfo(251, std::move(partials), std::vector<unsigned>({5,0,0,0,0,0,5,5,0,0,0,50,5})));
   }
   return ret;
 }
