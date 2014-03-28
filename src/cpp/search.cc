@@ -64,6 +64,7 @@ struct ctrl {
   mutex mutex_;
   condition_variable cv_;
   ctrl() : sleeping_(false), mutex_(), cv_() {}
+  CACHE_PADOUT;
 };
 
 class batcher {
@@ -119,7 +120,7 @@ private:
 static concurrent_queue< work > work_queue;
 static concurrent_hash_map<uint32_t, double> values;
 static vector< padded<double> > abs_max_changes;
-static vector< padded<ctrl> > controls;
+static vector< unique_ptr<ctrl> > controls;
 
 static inline void
 reset_abs_max_changes()
@@ -280,6 +281,8 @@ go(unsigned nworkers, double tol)
   assert(tol > 0.0);
 
   abs_max_changes.resize( nworkers );
+  for (unsigned i = 0; i < nworkers; i++)
+    controls.emplace_back( new ctrl );
 
   vector<thread> workers;
   for (unsigned i = 0; i < nworkers; i++)
