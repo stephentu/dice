@@ -4,8 +4,10 @@
 #include "timer.hh"
 #include "macros.hh"
 
+#include <atomic>
 #include <thread>
 #include <mutex>
+#include <string>
 #include <condition_variable>
 #include <unistd.h>
 #include <tbb/concurrent_queue.h>
@@ -274,8 +276,25 @@ go0(unsigned tid)
   }
 }
 
+static std::atomic<bool> keepgoing(true);
+
 static void
-go(unsigned nworkers, double tol)
+statuspoller()
+{
+  unsigned last = 0;
+  timer t;
+  while (keepgoing.load()) {
+    sleep(10);
+    const unsigned cur = work_queue.unsafe_size();
+    if (cur < last)
+      continue;
+    const double rate = (cur - last) / t.lap_ms() / 1000.; // cmds/sec
+    cout << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
+  }
+}
+
+static void
+go(unsigned nworkers, double tol, const string &filename)
 {
   assert(nworkers > 0);
   assert(tol > 0.0);
@@ -289,6 +308,7 @@ go(unsigned nworkers, double tol)
     workers.emplace_back(go0, i);
 
   batcher b(work::batch_size, &work_queue);
+  thread poller(statuspoller);
   for (unsigned iter = 0; ; iter++) {
     timer enq_timer, finish_timer;
     reset_abs_max_changes();
@@ -330,7 +350,8 @@ go(unsigned nworkers, double tol)
     if (abs_max_change <= tol)
       break;
   }
-
+  keepgoing.store(false);
+  poller.join();
   for (unsigned i = 0; i < nworkers; i++)
     work_queue.push(work(work::die_tag));
   for (auto &w : workers)
@@ -355,6 +376,6 @@ main(int argc, char **argv)
   //cout << "nbits: " << dicestate::encode_bits << endl;
   //cout << "len: " << (1UL << dicestate::encode_bits) << endl;
 
-  go(num_cpus_online() * 2, 1e-1);
+  go(num_cpus_online() * 2, 1e-1, "");
   return 0;
 }
