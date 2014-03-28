@@ -8,7 +8,9 @@
 #include <thread>
 #include <mutex>
 #include <string>
+#include <stdexcept>
 #include <condition_variable>
+#include <cstdio>
 #include <unistd.h>
 #include <tbb/concurrent_queue.h>
 #include <tbb/concurrent_hash_map.h>
@@ -120,8 +122,8 @@ private:
 };
 
 static concurrent_queue< work > work_queue;
-static vector< double > values;
-static vector< padded<double> > abs_max_changes;
+static vector< float > values;
+static vector< padded<float> > abs_max_changes;
 static vector< unique_ptr<ctrl> > controls;
 
 static inline void
@@ -131,26 +133,26 @@ reset_abs_max_changes()
     *p = 0;
 }
 
-static inline double
+static inline float
 query_abs_max_changes()
 {
-  double m = 0.0;
+  float m = 0.0;
   for (const auto &p : abs_max_changes)
     m = max(m, *p);
   return m;
 }
 
 static inline void
-update_value(unsigned tid, uint32_t encoding, double newvalue)
+update_value(unsigned tid, uint32_t encoding, float newvalue)
 {
   assert(tid < abs_max_changes.size());
   assert(encoding < values.size());
-  const double oldvalue = values[encoding];
+  const float oldvalue = values[encoding];
   *abs_max_changes[tid] = max(*abs_max_changes[tid], fabs(oldvalue - newvalue));
   values[encoding] = newvalue;
 }
 
-static inline double
+static inline float
 read_value(uint32_t encoding)
 {
   assert(encoding < values.size());
@@ -173,7 +175,7 @@ update(unsigned tid, const dicestate &s)
     // we set values(s) to the weighted average of all possible
     // rolls
 
-    double sum = 0.0;
+    float sum = 0.0;
     for (auto &p : rolldists.back()) {
       p.first.assert_proper();
       sum += read_value(s.roll(p.first).encode()) * p.second;
@@ -183,7 +185,7 @@ update(unsigned tid, const dicestate &s)
     return;
   }
 
-  double best_so_far = 0.0;
+  float best_so_far = 0.0;
 
   // can roll again
   if (s.roll_number_ < 3 ||
@@ -195,7 +197,7 @@ update(unsigned tid, const dicestate &s)
       const unsigned roll = 5 - keep;
       for (auto &p : *it) {
         assert(p.count() == keep);
-        double sum = 0.0;
+        float sum = 0.0;
         for (auto &outcome : rolldists[roll - 1]) {
           assert(outcome.first.count() == roll);
           const auto r = p.merge(outcome.first);
@@ -213,7 +215,7 @@ update(unsigned tid, const dicestate &s)
   for (unsigned c = 0; c < NUM_CATEGORIES; c++) {
     if (s.has_selected((categories) c))
       continue;
-    const double score = scores[c] + read_value(s.accept((categories) c).encode());
+    const float score = scores[c] + read_value(s.accept((categories) c).encode());
     best_so_far = max(best_so_far, score);
   }
 
@@ -285,14 +287,46 @@ statuspoller()
   while (keepgoing.load()) {
     sleep(10);
     const unsigned cur = work_queue.unsafe_size();
-    const double rate = double(signed(last) - signed(cur)) / t.lap_ms() * 1000.; // cmds/sec
+    const float rate = float(signed(last) - signed(cur)) / t.lap_ms() * 1000.; // cmds/sec
     cout << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
     last = cur;
   }
 }
 
+static ssize_t
+writeall(int fd, const void *buffer, size_t count)
+{
+  size_t left_to_write = count;
+  while (left_to_write > 0) {
+    ssize_t written = write(fd, buffer, count);
+    if (written == -1)
+      return -1;
+    else
+      left_to_write -= written;
+  }
+  assert(left_to_write == 0);
+  return count;
+}
+
 static void
-go(unsigned nworkers, double tol, const string &filename)
+persist(const string &filename)
+{
+  string s("/tmp/searchXXXXXX");
+  int fd = mkstemp(&s[0]);
+  if (fd == -1)
+    throw runtime_error("could not open temp file");
+  const auto written =
+    writeall(fd, &values[0], sizeof(float)*values.size());
+  if (written == -1)
+    throw runtime_error("could not write bytes");
+  const auto stat = rename(filename.c_str(), s.c_str());
+  if (stat)
+    throw runtime_error("could not rename");
+  close(fd);
+}
+
+static void
+go(unsigned nworkers, float tol, const string &filename)
 {
   assert(nworkers > 0);
   assert(tol > 0.0);
@@ -345,13 +379,14 @@ go(unsigned nworkers, double tol, const string &filename)
       controls[i]->sleeping_ = false;
       controls[i]->cv_.notify_one();
     }
-    const double abs_max_change = query_abs_max_changes();
+    const float abs_max_change = query_abs_max_changes();
     cout << "Finished iteration " << (iter+1) << " in "
          << (finish_timer.lap_ms()/1000.) << " sec" << ", with |max_change| = "
          << abs_max_change << endl;
     if (abs_max_change <= tol)
       break;
   }
+  persist(filename);
   keepgoing.store(false);
   poller.join();
   for (unsigned i = 0; i < nworkers; i++)
@@ -371,6 +406,10 @@ num_cpus_online()
 int
 main(int argc, char **argv)
 {
-  go(num_cpus_online() * 2, 1e-1, "");
+  if (argc == 1) {
+    cerr << "[usage]" << argv[0] << " filename" << endl;
+    return 1;
+  }
+  go(num_cpus_online() * 2, 1e-1, argv[1]);
   return 0;
 }
