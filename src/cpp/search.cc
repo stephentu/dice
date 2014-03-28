@@ -290,6 +290,7 @@ go(unsigned nworkers, double tol)
 
   batcher b(work::batch_size, &work_queue);
   for (unsigned iter = 0; ; iter++) {
+    cout << "Staring iteration " << (iter+1) << endl;
     timer enq_timer, finish_timer;
     reset_abs_max_changes();
     for (uint32_t flags = 0; flags < (1<<dicestate::nbits_flags); flags++) {
