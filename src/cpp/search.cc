@@ -262,6 +262,7 @@ go0(unsigned tid)
         unique_lock<mutex> lock(controls[tid]->mutex_);
         ALWAYS_ASSERT( !controls[tid]->sleeping_ );
         controls[tid]->sleeping_ = true;
+        controls[tid]->cv_.notify_one();
         while (controls[tid]->sleeping_)
           controls[tid]->cv_.wait(lock);
       }
