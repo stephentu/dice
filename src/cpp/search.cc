@@ -12,6 +12,7 @@
 #include <condition_variable>
 #include <cstdio>
 #include <unistd.h>
+#include <libgen.h>
 #include <tbb/concurrent_queue.h>
 #include <tbb/concurrent_hash_map.h>
 
@@ -288,7 +289,7 @@ statuspoller()
     sleep(10);
     const unsigned cur = work_queue.unsafe_size();
     const float rate = float(signed(last) - signed(cur)) / t.lap_ms() * 1000.; // cmds/sec
-    cout << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
+    cerr << "[status] rate=" << rate << " cmds/sec, cursize=" << cur << endl;
     last = cur;
   }
 }
@@ -296,32 +297,47 @@ statuspoller()
 static ssize_t
 writeall(int fd, const void *buffer, size_t count)
 {
-  size_t left_to_write = count;
-  while (left_to_write > 0) {
-    ssize_t written = write(fd, buffer, count);
+  size_t left = count;
+  while (left > 0) {
+    ssize_t written = write(fd, buffer, left);
     if (written == -1)
       return -1;
-    else
-      left_to_write -= written;
+    left -= written;
+    buffer = (const char *)buffer + written;
   }
-  assert(left_to_write == 0);
   return count;
+}
+
+static inline string
+string_dirname(const string &f)
+{
+  string s(f);
+  return dirname((char *) s.c_str());
 }
 
 static void
 persist(const string &filename)
 {
-  string s("/tmp/searchXXXXXX");
-  int fd = mkstemp(&s[0]);
-  if (fd == -1)
+  const string dir = string_dirname(filename);
+  string s(dir + "/searchXXXXXX");
+  const int fd = mkstemp(&s[0]);
+  if (fd == -1) {
+    perror("mkstemp");
     throw runtime_error("could not open temp file");
+  }
+  cerr << "[status] writing " << sizeof(float)*values.size()
+       << " bytes" << endl;
   const auto written =
     writeall(fd, &values[0], sizeof(float)*values.size());
-  if (written == -1)
+  if (written == -1) {
+    perror("write");
     throw runtime_error("could not write bytes");
-  const auto stat = rename(filename.c_str(), s.c_str());
-  if (stat)
+  }
+  const auto stat = rename(s.c_str(), filename.c_str());
+  if (stat) {
+    perror("rename");
     throw runtime_error("could not rename");
+  }
   close(fd);
 }
 
@@ -344,8 +360,9 @@ go(unsigned nworkers, float tol, const string &filename)
 
   batcher b(work::batch_size, &work_queue);
   thread poller(statuspoller);
+
   for (unsigned iter = 0; ; iter++) {
-    cout << "Staring iteration " << (iter+1) << endl;
+    cerr << "Staring iteration " << (iter+1) << endl;
     timer enq_timer, finish_timer;
     reset_abs_max_changes();
     for (uint32_t flags = 0; flags < (1<<dicestate::nbits_flags); flags++) {
@@ -364,7 +381,7 @@ go(unsigned nworkers, float tol, const string &filename)
     }
     const unsigned enqueued = b.numenqueued();
     b.finish();
-    cout << "Enqueued " << enqueued << " states in "
+    cerr << "Enqueued " << enqueued << " states in "
          << (enq_timer.lap_ms()/1000.) << " sec" << endl;
 
     for (unsigned i = 0; i < nworkers; i++)
@@ -380,12 +397,13 @@ go(unsigned nworkers, float tol, const string &filename)
       controls[i]->cv_.notify_one();
     }
     const float abs_max_change = query_abs_max_changes();
-    cout << "Finished iteration " << (iter+1) << " in "
+    cerr << "Finished iteration " << (iter+1) << " in "
          << (finish_timer.lap_ms()/1000.) << " sec" << ", with |max_change| = "
          << abs_max_change << endl;
     if (abs_max_change <= tol)
       break;
   }
+
   persist(filename);
   keepgoing.store(false);
   poller.join();
