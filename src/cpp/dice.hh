@@ -60,6 +60,12 @@ struct diceroll {
     reset();
   }
 
+  template <typename PRNG>
+  diceroll(PRNG &prng)
+  {
+    roll(prng);
+  }
+
   struct encode_type_small_t {};
   struct encode_type_tiny_t {};
 
@@ -123,6 +129,19 @@ struct diceroll {
     std::uniform_int_distribution<unsigned> unif(0, 5);
     for (unsigned i = 0; i < 5; i++)
       counts_[ unif(prng) ]++;
+  }
+
+  template <typename PRNG>
+  inline diceroll
+  complete(PRNG &prng) const
+  {
+    diceroll ret(*this);
+    const auto c = count();
+    assert( c < 5 );
+    std::uniform_int_distribution<unsigned> unif(0, 5);
+    for (unsigned i = 0; 5 - c; i++)
+      ret.counts_[ unif(prng) ]++;
+    return ret;
   }
 
   inline void
@@ -215,6 +234,12 @@ struct dicestate {
       roll_number_(roll_number), roll_state_(roll_state) {}
 
   dicestate(uint32_t encoding);
+
+  inline bool
+  endstate() const
+  {
+    return (flags_ & MASK_CATEGORIES) == MASK_CATEGORIES;
+  }
 
 #define GETTER_SETTER(name, flag) \
   inline bool \

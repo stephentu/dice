@@ -1,8 +1,10 @@
 #include "dice.hh"
 #include "diceenum.hh"
+#include "driver.hh"
 #include "log2.hh"
 #include "timer.hh"
 #include "macros.hh"
+#include "util.hh"
 
 #include <atomic>
 #include <thread>
@@ -19,6 +21,7 @@
 using namespace std;
 using namespace dice;
 using namespace tbb;
+using namespace util;
 
 template <typename T>
 class padded {
@@ -153,17 +156,10 @@ update_value(unsigned tid, uint32_t encoding, float newvalue)
   values[encoding] = newvalue;
 }
 
-static inline float
-read_value(uint32_t encoding)
-{
-  assert(encoding < values.size());
-  return values[encoding];
-}
-
 static void
 update(unsigned tid, const dicestate &s)
 {
-  if ((s.flags_ & dicestate::MASK_CATEGORIES) == dicestate::MASK_CATEGORIES) {
+  if (s.endstate()) {
     assert(s.roll_number_ == 0);
     assert(s.top_score_ == 0);
     assert(s.roll_state_.empty());
@@ -175,52 +171,16 @@ update(unsigned tid, const dicestate &s)
     // can only roll (and we've asserted the game isn't over yet)
     // we set values(s) to the weighted average of all possible
     // rolls
-
     float sum = 0.0;
     for (auto &p : rolldists.back()) {
       p.first.assert_proper();
-      sum += read_value(s.roll(p.first).encode()) * p.second;
+      sum += checked(values, s.roll(p.first).encode()) * p.second;
     }
-
     update_value(tid, s.encode(), sum);
     return;
   }
-
-  float best_so_far = 0.0;
-
-  // can roll again
-  if (s.roll_number_ < 3 ||
-      (s.roll_number_ == 3 && !s.get_USED_BONUS_ROLL())) {
-    const auto &partials = dicepartials(s.roll_state_);
-    unsigned keep = 0;
-    for (auto it = partials.begin(); it != partials.end(); ++it, ++keep) {
-      assert(keep < 5);
-      const unsigned roll = 5 - keep;
-      for (auto &p : *it) {
-        assert(p.count() == keep);
-        float sum = 0.0;
-        for (auto &outcome : rolldists[roll - 1]) {
-          assert(outcome.first.count() == roll);
-          const auto r = p.merge(outcome.first);
-          r.assert_proper();
-          sum += read_value(s.roll(r).encode()) * outcome.second;
-        }
-        best_so_far = max(best_so_far, sum);
-      }
-    }
-  }
-
-  // can accept
-  const auto &scores = dicescores(s.roll_state_);
-  assert(scores.size() == NUM_CATEGORIES);
-  for (unsigned c = 0; c < NUM_CATEGORIES; c++) {
-    if (s.has_selected((categories) c))
-      continue;
-    const float score = scores[c] + read_value(s.accept((categories) c).encode());
-    best_so_far = max(best_so_far, score);
-  }
-
-  update_value(tid, s.encode(), best_so_far);
+  const auto p = driver::nextmove(values, s);
+  update_value(tid, s.encode(), p.expected_outcome_);
 }
 
 // enqueue work

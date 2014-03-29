@@ -12,10 +12,10 @@ endif
 
 LDFLAGS := -lpthread -lrt -ltbb
 
-SRCFILES := dice.cc diceenum.1.cc diceenum.2.cc diceenum.3.cc
+SRCFILES := dice.cc diceenum.1.cc diceenum.2.cc diceenum.3.cc driver.cc
 OBJFILES = $(SRCFILES:.cc=.o)
 
-PROGS := search test
+PROGS := search simulator test
 
 all: $(PROGS)
 
