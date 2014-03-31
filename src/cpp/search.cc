@@ -191,6 +191,7 @@ enqueue_with_scores(
     unsigned turn, const vector<unsigned> &scores)
 {
   for (auto topscore : scores) {
+    assert( topscore <= dicestate::max_top_score );
     if (turn == 0) {
       dicestate s;
       s.flags_ = flags;

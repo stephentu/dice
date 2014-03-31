@@ -247,7 +247,7 @@ if __name__ == '__main__':
             for i in xrange(6):
                 if idx & (1<<i):
                     values.append(tuple((i+1)*j for j in xrange(0, 6)))
-            unique_values = tuple(sorted(set(map(sum, it.product(*values)))))
+            unique_values = tuple(v for v in sorted(set(map(sum, it.product(*values)))) if v < 63)
             print >>fp, r'  {'
             print >>fp, r'    std::vector<unsigned> p;'
             for v in unique_values:

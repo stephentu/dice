@@ -12,6 +12,7 @@ struct driver {
     unsigned reward_;
     float expected_outcome_;
     move() : type_(), keep_(), accept_(), reward_(), expected_outcome_() {}
+    inline float score() const { return reward_ + expected_outcome_; }
   };
   static move
   nextmove(const std::vector<float> &values, const dicestate &s);
