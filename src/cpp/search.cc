@@ -180,8 +180,7 @@ update(unsigned tid, const dicestate &s)
     return;
   }
   const auto p = driver::nextmove(values, s);
-  update_value(tid, s.encode(),
-      p.reward_ + p.expected_outcome_);
+  update_value(tid, s.encode(), p.score());
 }
 
 // enqueue work
