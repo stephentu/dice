@@ -65,23 +65,23 @@ simulate(PRNG &prng, const vector<float> &values, size_t n)
     s = s.roll(diceroll(prng));
     unsigned score = 0;
     while (!s.endstate()) {
-      cerr << "CURSTATE: " << s.roll_state_
-           << ", flags=" << flags_to_s(s)
-           << ", bonus=" << s.get_USED_BONUS_ROLL()
-           << ", roll=" << s.roll_number_
-           << ", score=" << score
-           << ", top_score=" << s.top_score_
-           << endl;
+      //cerr << "CURSTATE: " << s.roll_state_
+      //     << ", flags=" << flags_to_s(s)
+      //     << ", bonus=" << s.get_USED_BONUS_ROLL()
+      //     << ", roll=" << s.roll_number_
+      //     << ", score=" << score
+      //     << ", top_score=" << s.top_score_
+      //     << endl;
       const auto p = driver::nextmove(values, s);
       score += p.reward_;
       if (p.type_ == driver::move_type::ACCEPT) {
         s = s.accept(p.accept_);
         s = s.roll(diceroll(prng));
-        cerr << "ACCEPT category " << catstr(p.accept_) << endl;
+        //cerr << "ACCEPT category " << catstr(p.accept_) << endl;
       } else {
         ALWAYS_ASSERT( p.type_ == driver::move_type::ROLL );
         s = s.roll(p.keep_.complete(prng));
-        cerr << "ROLL keep " << p.keep_ << endl;
+        //cerr << "ROLL keep " << p.keep_ << endl;
       }
     }
     scores.push_back(score);
@@ -126,6 +126,6 @@ main(int argc, char **argv)
     // load a dummy policy, just for testing purposes
     values.resize( 1UL << dicestate::encode_bits );
   }
-  simulate(prng, values, 100);
+  simulate(prng, values, 10000);
   return 0;
 }
