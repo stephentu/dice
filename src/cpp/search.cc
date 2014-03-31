@@ -180,7 +180,8 @@ update(unsigned tid, const dicestate &s)
     return;
   }
   const auto p = driver::nextmove(values, s);
-  update_value(tid, s.encode(), p.expected_outcome_);
+  update_value(tid, s.encode(),
+      p.reward_ + p.expected_outcome_);
 }
 
 // enqueue work
@@ -388,6 +389,6 @@ main(int argc, char **argv)
     cerr << "[usage]" << argv[0] << " filename" << endl;
     return 1;
   }
-  go(num_cpus_online() * 2, 1e-1, argv[1]);
+  go(num_cpus_online() * 2, 1e-2, argv[1]);
   return 0;
 }

@@ -139,7 +139,7 @@ struct diceroll {
     const auto c = count();
     assert( c < 5 );
     std::uniform_int_distribution<unsigned> unif(0, 5);
-    for (unsigned i = 0; 5 - c; i++)
+    for (unsigned i = 0; i < 5 - c; i++)
       ret.counts_[ unif(prng) ]++;
     return ret;
   }
@@ -265,9 +265,8 @@ struct dicestate {
 #undef GETTER_SETTER
 
   static const unsigned nbits_flags = NUM_CATEGORIES + 1;
-  static const unsigned max_top_score =
-    1*5 + 2*5 + 3*5 + 4*5 + 5*5;
-  static const unsigned max_roll_number = 3; // [0, 3]
+  static const unsigned max_top_score = 62; // {0, ..., 62}
+  static const unsigned max_roll_number = 3; // {0, ..., 3}
 
   static const unsigned nbits_max_top_score =
     ceil_log2_const(max_top_score + 1);
@@ -310,14 +309,17 @@ struct dicestate {
     roll_state_.assert_proper();
     assert(c < NUM_CATEGORIES);
     assert(!(flags_ & (1 << c)));
+    const uint32_t newflags = flags_ | (1 << c);
     if (c < CAT_3OFKIND) {
-      const uint32_t newflags = flags_ & c;
-      const uint32_t mask = MASK_TOP_SCORES;
-      const unsigned newscore =
-        ((newflags & mask) == mask) ? 0 : (c+1)*roll_state_.counts_[c];
-      return dicestate(flags_ | (1 << c), newscore, 0, diceroll());
+      if ((newflags & MASK_TOP_SCORES) == MASK_TOP_SCORES)
+        return dicestate(newflags, 0, 0, diceroll());
+      const unsigned contrib = (c+1)*roll_state_.counts_[c];
+      const unsigned newscore = top_score_ + contrib;
+      if (newscore >= 63)
+        return dicestate(newflags, 0, 0, diceroll());
+      return dicestate(newflags, newscore, 0, diceroll());
     } else
-      return dicestate(flags_ | (1 << c), top_score_, 0, diceroll());
+      return dicestate(newflags, top_score_, 0, diceroll());
   }
 
   inline bool

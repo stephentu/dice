@@ -33,7 +33,7 @@ uint32_t
 diceroll::encode_tiny() const
 {
   if (empty())
-    return rollinfos.size();
+    return reverserollinfos.size();
   else
     return diceid(*this);
 }
@@ -62,8 +62,10 @@ dicestate::encode() const
   assert( !(roll_number_ & ~((1<<nbits_max_roll_number)-1)) );
   value |= (roll_number_ << (nbits_flags + nbits_max_top_score));
 
-  value |= (roll_state_.encode_tiny() <<
-      (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
+  const uint32_t e = roll_state_.encode_tiny();
+  assert( !(e & ~((1<<nbits_roll_state)-1)) );
+  value |= (e << (nbits_flags + nbits_max_top_score + nbits_max_roll_number));
+  assert( value < (1<<encode_bits) );
   return value;
 }
 

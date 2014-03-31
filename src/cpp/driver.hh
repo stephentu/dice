@@ -9,7 +9,7 @@ struct driver {
     move_type type_;
     diceroll keep_;
     categories accept_;
-    float reward_;
+    unsigned reward_;
     float expected_outcome_;
     move() : type_(), keep_(), accept_(), reward_(), expected_outcome_() {}
   };
