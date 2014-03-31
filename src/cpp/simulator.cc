@@ -3,6 +3,8 @@
 #include "macros.hh"
 
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
 #include <chrono>
 #include <random>
 #include <cmath>
@@ -60,6 +62,21 @@ simulate(PRNG &prng, const vector<float> &values, size_t n)
   cout << "mean=" << mean(values) << ", std=" << sqrt(var(values)) << endl;
 }
 
+static void
+loadvalues(vector<float> &values, const string &filename)
+{
+  ifstream ifs(filename);
+  if (!ifs.good())
+    throw runtime_error("could not open " + filename);
+  const auto len = ifs.seekg(0, ifs.end).tellg();
+  ifs.seekg(0, ifs.beg);
+  if (len % sizeof(float))
+    throw runtime_error("bad file size: " + to_string(len));
+  values.clear();
+  values.resize(len % sizeof(float));
+  ifs.read((char *) &values[0], len);
+}
+
 int
 main(int argc, char **argv)
 {
@@ -70,6 +87,12 @@ main(int argc, char **argv)
   const unsigned seed =
     chrono::system_clock::now().time_since_epoch().count();
   default_random_engine prng(seed);
-  simulate(prng, {}, 1000); // XXX: fill out values
+  vector<float> values;
+  loadvalues(values, argv[1]);
+  if (values.size() != (1UL << dicestate::encode_bits)) {
+    cerr << "input values array not right size: " << values.size() << endl;
+    return 2;
+  }
+  simulate(prng, values, 1000);
   return 0;
 }
