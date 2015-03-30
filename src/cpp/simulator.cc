@@ -62,7 +62,9 @@ simulate(PRNG &prng, const vector<float> &values, size_t n)
   vector<unsigned> scores;
   for (unsigned i = 0; i < n; i++) {
     dicestate s;
-    s = s.roll(diceroll(prng));
+    diceroll r;
+    r.roll(prng);
+    s = s.roll(r);
     unsigned score = 0;
     while (!s.endstate()) {
       //cerr << "CURSTATE: " << s.roll_state_
@@ -76,7 +78,8 @@ simulate(PRNG &prng, const vector<float> &values, size_t n)
       score += p.reward_;
       if (p.type_ == driver::move_type::ACCEPT) {
         s = s.accept(p.accept_);
-        s = s.roll(diceroll(prng));
+        r.roll(prng);
+        s = s.roll(r);
         //cerr << "ACCEPT category " << catstr(p.accept_) << endl;
       } else {
         ALWAYS_ASSERT( p.type_ == driver::move_type::ROLL );

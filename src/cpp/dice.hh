@@ -60,11 +60,7 @@ struct diceroll {
     reset();
   }
 
-  template <typename PRNG>
-  diceroll(PRNG &prng)
-  {
-    roll(prng);
-  }
+  diceroll(const diceroll &) = default;
 
   struct encode_type_small_t {};
   struct encode_type_tiny_t {};
